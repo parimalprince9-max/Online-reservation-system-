@@ -3,55 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Payroll System</title>
+    <title>Enterprise Payroll System</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+    <div class="dashboard">
         <header>
-            <h1>Payroll Management System</h1>
-            <p>Manage Full-time and Part-time Employee Salaries</p>
+            <h1>GlobalTech Payroll Manager</h1>
+            <p>Advanced Salary & Tax Computation System</p>
         </header>
 
-        <section class="form-section">
-            <form id="payrollForm">
-                <div class="input-group">
-                    <input type="text" id="empName" placeholder="Employee Name" required>
-                    <input type="number" id="empId" placeholder="Employee ID" required>
-                </div>
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Employees</h3>
+                <h2 id="totalEmpCount">0</h2>
+            </div>
+            <div class="stat-card">
+                <h3>Total Net Payroll</h3>
+                <h2 id="totalPayrollAmt">$0.00</h2>
+            </div>
+        </div>
 
-                <div class="input-group">
-                    <select id="empType" onchange="toggleInputs()">
-                        <option value="full-time">Full-Time (Monthly)</option>
-                        <option value="part-time">Part-Time (Hourly)</option>
-                    </select>
-                    <input type="number" id="salaryInput" placeholder="Base Salary / Hourly Rate" required>
-                </div>
+        <div class="main-content">
+            <section class="form-section">
+                <h2>Add New Employee</h2>
+                <form id="payrollForm">
+                    <div class="input-group">
+                        <input type="text" id="empName" placeholder="Full Legal Name" required autocomplete="off">
+                        <select id="empDept" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Research">Research & Development</option>
+                            <option value="HR">Human Resources</option>
+                        </select>
+                    </div>
 
-                <div id="extraInput" class="input-group">
-                    <input type="number" id="hoursWorked" placeholder="Hours Worked" style="display:none;">
-                </div>
+                    <div class="input-group">
+                        <select id="empType" onchange="UI.toggleInputs()" required>
+                            <option value="full-time">Full-Time (Monthly Salaried)</option>
+                            <option value="part-time">Part-Time (Hourly Contract)</option>
+                        </select>
+                        <input type="number" id="salaryInput" placeholder="Base Monthly Salary ($)" required min="1">
+                    </div>
 
-                <button type="submit" id="addBtn">Add Employee</button>
-            </form>
-        </section>
+                    <div id="extraInput" class="input-group" style="display:none;">
+                        <input type="number" id="hoursWorked" placeholder="Total Hours Worked" min="1">
+                    </div>
 
-        <section class="table-section">
-            <table id="payrollTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Final Salary</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="employeeList">
-                    </tbody>
-            </table>
-        </section>
+                    <button type="submit" id="addBtn">
+                        <span>Process & Add Employee</span>
+                    </button>
+                </form>
+            </section>
+
+            <section class="table-section">
+                <table id="payrollTable">
+                    <thead>
+                        <tr>
+                            <th>EMP ID</th>
+                            <th>Name</th>
+                            <th>Dept.</th>
+                            <th>Type</th>
+                            <th>Gross Pay</th>
+                            <th>Tax (10%)</th>
+                            <th>Net Salary</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeList">
+                        </tbody>
+                </table>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>
