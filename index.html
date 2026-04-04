@@ -1,210 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ATM Pro System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced ATM Management System</title>
+    <style>
+        :root {
+            --atm-bg: #1a1a1a;
+            --screen-bg: #0a1f0a;
+            --screen-text: #33ff33;
+            --button-bg: #333;
+            --button-text: #fff;
+            --button-hover: #555;
+            --alert-color: #ff3333;
+        }
 
-<!-- Chart -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
 
-<style>
-:root{
-  --bg:#0b132b; --card:#1c2541; --text:#eaeaea; --accent:#5bc0be;
-}
-.light{
-  --bg:#f2f2f2; --card:#ffffff; --text:#222; --accent:#0072ff;
-}
-body{
-  margin:0; font-family:Arial;
-  background:var(--bg); color:var(--text); text-align:center;
-}
-.card{
-  width:360px; margin:40px auto; padding:20px;
-  background:var(--card); border-radius:12px;
-  box-shadow:0 0 15px black;
-}
-input, select{
-  width:90%; padding:10px; margin:8px;
-  border:none; border-radius:5px;
-}
-button{
-  padding:10px 15px; margin:5px;
-  border:none; border-radius:5px;
-  background:var(--accent); cursor:pointer;
-}
-.hidden{display:none;}
-table{
-  width:100%; border-collapse:collapse; margin-top:10px;
-}
-th,td{
-  border:1px solid gray; padding:5px;
-}
-</style>
+        .atm-machine {
+            background-color: var(--atm-bg);
+            border: 4px solid #444;
+            border-radius: 15px;
+            padding: 30px;
+            width: 450px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .screen-container {
+            background-color: var(--screen-bg);
+            border: 5px solid #222;
+            border-radius: 10px;
+            height: 250px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: var(--screen-text);
+            text-shadow: 0 0 5px var(--screen-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .menu-options {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .menu-btn-label {
+            background-color: transparent;
+            border: 1px solid var(--screen-text);
+            color: var(--screen-text);
+            padding: 10px;
+            text-align: center;
+            font-family: inherit;
+            font-weight: bold;
+        }
+
+        .input-field {
+            background-color: #000;
+            border: 2px solid var(--screen-text);
+            color: var(--screen-text);
+            font-family: inherit;
+            font-size: 1.5rem;
+            padding: 10px;
+            text-align: center;
+            width: 60%;
+            margin: 15px 0;
+            letter-spacing: 5px;
+        }
+
+        .error-msg {
+            color: var(--alert-color);
+            text-shadow: 0 0 5px var(--alert-color);
+            font-size: 0.9rem;
+            height: 20px;
+        }
+
+        /* Hardware Keypad Styling */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) 1.5fr;
+            gap: 10px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #111;
+        }
+
+        .key {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: 2px solid #111;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .key:active {
+            box-shadow: 0px 0px 0px #000;
+            transform: translateY(2px);
+        }
+
+        .key-action {
+            grid-column: 4;
+        }
+
+        .key-cancel { background-color: #d9534f; }
+        .key-clear { background-color: #f0ad4e; }
+        .key-enter { background-color: #5cb85c; }
+        
+        .hardware-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: -15px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .side-btn {
+            width: 40px;
+            height: 30px;
+            background: #444;
+            border: 2px solid #222;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- MODE TOGGLE -->
-<button onclick="toggleMode()">🌗 Toggle Mode</button>
+    <div class="atm-machine">
+        <div class="screen-container">
+            <div id="screen-welcome" class="screen active">
+                <h2>Welcome to Global Bank</h2>
+                <p>Please insert your card to begin.</p>
+                <p style="font-size: 0.8rem; margin-top: 20px; animation: blink 1.5s infinite;">(Press ENTER on keypad to simulate card insertion)</p>
+            </div>
 
-<!-- SIGNUP -->
-<div class="card" id="signupBox">
-<h2>Signup</h2>
-<input id="newUser" placeholder="User ID"/>
-<input id="newPin" placeholder="PIN"/>
-<button onclick="signup()">Create Account</button>
-<p id="signupMsg"></p>
-</div>
+            <div id="screen-pin" class="screen">
+                <h2>Enter PIN</h2>
+                <input type="password" id="pin-input" class="input-field" readonly maxlength="4">
+                <div id="pin-error" class="error-msg"></div>
+                <p style="font-size: 0.8rem;">Default PIN: 1234</p>
+            </div>
 
-<!-- LOGIN -->
-<div class="card" id="loginBox">
-<h2>Login</h2>
-<input id="userId" placeholder="User ID"/>
-<input id="pin" placeholder="PIN"/>
-<button onclick="login()">Login</button>
-<p id="loginMsg"></p>
-</div>
+            <div id="screen-menu" class="screen">
+                <h2>Main Menu</h2>
+                <div class="menu-options">
+                    <div class="menu-btn-label">1. Withdraw</div>
+                    <div class="menu-btn-label">2. Deposit</div>
+                    <div class="menu-btn-label">3. Balance</div>
+                    <div class="menu-btn-label">4. Exit</div>
+                </div>
+            </div>
 
-<!-- ATM -->
-<div class="card hidden" id="atmBox">
-<h2>ATM Dashboard</h2>
+            <div id="screen-withdraw" class="screen">
+                <h2>Withdrawal Amount</h2>
+                <p>Enter amount in multiples of $10</p>
+                <input type="text" id="amount-input" class="input-field" readonly>
+                <div id="withdraw-error" class="error-msg"></div>
+            </div>
 
-<p>User: <span id="userName"></span></p>
-<p>Balance: ₹<span id="balance"></span></p>
+            <div id="screen-success" class="screen">
+                <h2>Transaction Successful</h2>
+                <p id="success-message">Please take your cash.</p>
+                <p style="margin-top: 15px;">Press CANCEL to Exit</p>
+            </div>
+        </div>
 
-<input id="amount" type="number" placeholder="Amount"/>
+        <div class="keypad" id="keypad">
+            <button class="key" onclick="pressKey('1')">1</button>
+            <button class="key" onclick="pressKey('2')">2</button>
+            <button class="key" onclick="pressKey('3')">3</button>
+            <button class="key key-action key-cancel" onclick="pressCancel()">CANCEL</button>
+            
+            <button class="key" onclick="pressKey('4')">4</button>
+            <button class="key" onclick="pressKey('5')">5</button>
+            <button class="key" onclick="pressKey('6')">6</button>
+            <button class="key key-action key-clear" onclick="pressClear()">CLEAR</button>
+            
+            <button class="key" onclick="pressKey('7')">7</button>
+            <button class="key" onclick="pressKey('8')">8</button>
+            <button class="key" onclick="pressKey('9')">9</button>
+            <button class="key key-action key-enter" onclick="pressEnter()">ENTER</button>
+            
+            <button class="key" style="visibility: hidden;">*</button>
+            <button class="key" onclick="pressKey('0')">0</button>
+            <button class="key" style="visibility: hidden;">#</button>
+            <button class="key key-action" style="visibility: hidden;"></button>
+        </div>
+    </div>
 
-<button onclick="deposit()">Deposit</button>
-<button onclick="withdraw()">Withdraw</button>
+    <script>
+        // --- Simulated Database & State Management ---
+        let currentScreen = 'welcome';
+        let accountBalance = 5000;
+        const correctPin = "1234";
+        let activeInput = null;
 
-<h3>Transactions</h3>
-<table>
-<thead><tr><th>Type</th><th>Amount</th><th>Time</th></tr></thead>
-<tbody id="history"></tbody>
-</table>
+        // --- Screen Navigation Functions ---
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('screen-' + screenId).classList.add('active');
+            currentScreen = screenId;
 
-<button onclick="downloadCSV()">Download CSV</button>
+            // Reset inputs when changing screens
+            if(screenId === 'pin') {
+                document.getElementById('pin-input').value = "";
+                document.getElementById('pin-error').innerText = "";
+                activeInput = document.getElementById('pin-input');
+            } else if (screenId === 'withdraw' || screenId === 'deposit') {
+                document.getElementById('amount-input').value = "";
+                document.getElementById('withdraw-error').innerText = "";
+                activeInput = document.getElementById('amount-input');
+            } else {
+                activeInput = null;
+            }
+        }
 
-<h3>Analytics</h3>
-<canvas id="chart"></canvas>
+        // --- Keypad Logic ---
+        function pressKey(num) {
+            if (activeInput) {
+                // Limit PIN length to 4
+                if (currentScreen === 'pin' && activeInput.value.length >= 4) return;
+                activeInput.value += num;
+            } else if (currentScreen === 'menu') {
+                handleMenuSelection(num);
+            }
+        }
 
-<button onclick="logout()">Logout</button>
-<p id="msg"></p>
-</div>
+        function pressClear() {
+            if (activeInput) {
+                activeInput.value = "";
+            }
+        }
 
-<script>
-// STORAGE
-let users = JSON.parse(localStorage.getItem("users")) || {};
-let currentUser=null;
+        function pressCancel() {
+            showScreen('welcome');
+        }
 
-// SIGNUP
-function signup(){
- let id=document.getElementById("newUser").value;
- let pin=document.getElementById("newPin").value;
- if(users[id]) return show("signupMsg","User exists");
- users[id]={pin,balance:0,history:[],dep:0,with:0};
- save(); show("signupMsg","Account created");
-}
+        function pressEnter() {
+            switch(currentScreen) {
+                case 'welcome':
+                    showScreen('pin');
+                    break;
+                case 'pin':
+                    validatePin();
+                    break;
+                case 'withdraw':
+                    processWithdrawal();
+                    break;
+            }
+        }
 
-// LOGIN
-function login(){
- let id=userId.value, p=pin.value;
- if(users[id] && users[id].pin===p){
-   currentUser=users[id];
-   loadATM(id);
- } else show("loginMsg","Invalid login");
-}
+        // --- Transaction Logic ---
+        function validatePin() {
+            const enteredPin = document.getElementById('pin-input').value;
+            if (enteredPin === correctPin) {
+                showScreen('menu');
+            } else {
+                document.getElementById('pin-error').innerText = "Incorrect PIN. Try again.";
+                document.getElementById('pin-input').value = "";
+            }
+        }
 
-// LOAD
-function loadATM(id){
- loginBox.classList.add("hidden");
- signupBox.classList.add("hidden");
- atmBox.classList.remove("hidden");
- userName.innerHTML=id;
- update();
- drawChart();
- renderHistory();
-}
+        function handleMenuSelection(option) {
+            switch(option) {
+                case '1':
+                    showScreen('withdraw');
+                    break;
+                case '2':
+                    alert("Deposit feature under construction."); // Simplified for example
+                    break;
+                case '3':
+                    document.getElementById('success-message').innerText = `Your current balance is $${accountBalance}`;
+                    showScreen('success');
+                    break;
+                case '4':
+                    showScreen('welcome');
+                    break;
+            }
+        }
 
-// DEPOSIT
-function deposit(){
- let amt=+amount.value;
- if(amt>0){
-  currentUser.balance+=amt;
-  currentUser.dep+=amt;
-  addHist("Deposit",amt);
- }
-}
+        function processWithdrawal() {
+            const amount = parseInt(document.getElementById('amount-input').value);
+            const errorDiv = document.getElementById('withdraw-error');
 
-// WITHDRAW
-function withdraw(){
- let amt=+amount.value;
- if(amt<=currentUser.balance){
-  currentUser.balance-=amt;
-  currentUser.with+=amt;
-  addHist("Withdraw",amt);
- } else show("msg","Low balance");
-}
+            if (isNaN(amount) || amount <= 0) {
+                errorDiv.innerText = "Please enter a valid amount.";
+                return;
+            }
+            if (amount % 10 !== 0) {
+                errorDiv.innerText = "Amount must be in multiples of 10.";
+                return;
+            }
+            if (amount > accountBalance) {
+                errorDiv.innerText = "Insufficient funds.";
+                return;
+            }
 
-// HISTORY
-function addHist(type,amt){
- currentUser.history.push({type,amt,time:new Date().toLocaleString()});
- save(); update(); renderHistory(); drawChart();
-}
-
-// RENDER HISTORY
-function renderHistory(){
- history.innerHTML=currentUser.history.map(h=>
- `<tr><td>${h.type}</td><td>${h.amt}</td><td>${h.time}</td></tr>`
- ).join("");
-}
-
-// CSV EXPORT
-function downloadCSV(){
- let rows=currentUser.history.map(h=>`${h.type},${h.amt},${h.time}`).join("\n");
- let blob=new Blob([rows],{type:"text/csv"});
- let a=document.createElement("a");
- a.href=URL.createObjectURL(blob);
- a.download="transactions.csv"; a.click();
-}
-
-// UPDATE
-function update(){
- balance.innerHTML=currentUser.balance;
- save();
-}
-
-// SAVE
-function save(){
- localStorage.setItem("users",JSON.stringify(users));
-}
-
-// CHART
-let chart;
-function drawChart(){
- let ctx=document.getElementById("chart");
- if(chart) chart.destroy();
- chart=new Chart(ctx,{
-  type:"pie",
-  data:{
-    labels:["Deposit","Withdraw"],
-    datasets:[{data:[currentUser.dep,currentUser.with]}]
-  }
- });
-}
-
-// MODE
-function toggleMode(){
- document.body.classList.toggle("light");
-}
-
-// UTIL
-function show(id,msg){document.getElementById(id).innerHTML=msg;}
-
-// LOGOUT
-function logout(){location.reload();}
-</script>
-
+            // Process success
+            accountBalance -= amount;
+            document.getElementById('success-message').innerText = `Please take your $${amount}. New Balance: $${accountBalance}`;
+            showScreen('success');
+        }
+    </script>
 </body>
 </html>
