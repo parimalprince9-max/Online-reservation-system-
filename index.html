@@ -3,342 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced ATM Management System</title>
-    <style>
-        :root {
-            --atm-bg: #1a1a1a;
-            --screen-bg: #0a1f0a;
-            --screen-text: #33ff33;
-            --button-bg: #333;
-            --button-text: #fff;
-            --button-hover: #555;
-            --alert-color: #ff3333;
-        }
-
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #fff;
-        }
-
-        .atm-machine {
-            background-color: var(--atm-bg);
-            border: 4px solid #444;
-            border-radius: 15px;
-            padding: 30px;
-            width: 450px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        .screen-container {
-            background-color: var(--screen-bg);
-            border: 5px solid #222;
-            border-radius: 10px;
-            height: 250px;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: var(--screen-text);
-            text-shadow: 0 0 5px var(--screen-text);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .screen {
-            display: none;
-            height: 100%;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .screen.active {
-            display: flex;
-        }
-
-        h2 {
-            margin-top: 0;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .menu-options {
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .menu-btn-label {
-            background-color: transparent;
-            border: 1px solid var(--screen-text);
-            color: var(--screen-text);
-            padding: 10px;
-            text-align: center;
-            font-family: inherit;
-            font-weight: bold;
-        }
-
-        .input-field {
-            background-color: #000;
-            border: 2px solid var(--screen-text);
-            color: var(--screen-text);
-            font-family: inherit;
-            font-size: 1.5rem;
-            padding: 10px;
-            text-align: center;
-            width: 60%;
-            margin: 15px 0;
-            letter-spacing: 5px;
-        }
-
-        .error-msg {
-            color: var(--alert-color);
-            text-shadow: 0 0 5px var(--alert-color);
-            font-size: 0.9rem;
-            height: 20px;
-        }
-
-        /* Hardware Keypad Styling */
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr) 1.5fr;
-            gap: 10px;
-            background-color: #222;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #111;
-        }
-
-        .key {
-            background-color: var(--button-bg);
-            color: var(--button-text);
-            border: 2px solid #111;
-            border-radius: 5px;
-            padding: 15px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 2px 2px 0px #000;
-        }
-
-        .key:active {
-            box-shadow: 0px 0px 0px #000;
-            transform: translateY(2px);
-        }
-
-        .key-action {
-            grid-column: 4;
-        }
-
-        .key-cancel { background-color: #d9534f; }
-        .key-clear { background-color: #f0ad4e; }
-        .key-enter { background-color: #5cb85c; }
-        
-        .hardware-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: -15px;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .side-btn {
-            width: 40px;
-            height: 30px;
-            background: #444;
-            border: 2px solid #222;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-    </style>
+    <title>Employee Payroll System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="atm-machine">
-        <div class="screen-container">
-            <div id="screen-welcome" class="screen active">
-                <h2>Welcome to Global Bank</h2>
-                <p>Please insert your card to begin.</p>
-                <p style="font-size: 0.8rem; margin-top: 20px; animation: blink 1.5s infinite;">(Press ENTER on keypad to simulate card insertion)</p>
-            </div>
+    <div class="container">
+        <header>
+            <h1>Payroll Management System</h1>
+            <p>Manage Full-time and Part-time Employee Salaries</p>
+        </header>
 
-            <div id="screen-pin" class="screen">
-                <h2>Enter PIN</h2>
-                <input type="password" id="pin-input" class="input-field" readonly maxlength="4">
-                <div id="pin-error" class="error-msg"></div>
-                <p style="font-size: 0.8rem;">Default PIN: 1234</p>
-            </div>
-
-            <div id="screen-menu" class="screen">
-                <h2>Main Menu</h2>
-                <div class="menu-options">
-                    <div class="menu-btn-label">1. Withdraw</div>
-                    <div class="menu-btn-label">2. Deposit</div>
-                    <div class="menu-btn-label">3. Balance</div>
-                    <div class="menu-btn-label">4. Exit</div>
+        <section class="form-section">
+            <form id="payrollForm">
+                <div class="input-group">
+                    <input type="text" id="empName" placeholder="Employee Name" required>
+                    <input type="number" id="empId" placeholder="Employee ID" required>
                 </div>
-            </div>
 
-            <div id="screen-withdraw" class="screen">
-                <h2>Withdrawal Amount</h2>
-                <p>Enter amount in multiples of $10</p>
-                <input type="text" id="amount-input" class="input-field" readonly>
-                <div id="withdraw-error" class="error-msg"></div>
-            </div>
+                <div class="input-group">
+                    <select id="empType" onchange="toggleInputs()">
+                        <option value="full-time">Full-Time (Monthly)</option>
+                        <option value="part-time">Part-Time (Hourly)</option>
+                    </select>
+                    <input type="number" id="salaryInput" placeholder="Base Salary / Hourly Rate" required>
+                </div>
 
-            <div id="screen-success" class="screen">
-                <h2>Transaction Successful</h2>
-                <p id="success-message">Please take your cash.</p>
-                <p style="margin-top: 15px;">Press CANCEL to Exit</p>
-            </div>
-        </div>
+                <div id="extraInput" class="input-group">
+                    <input type="number" id="hoursWorked" placeholder="Hours Worked" style="display:none;">
+                </div>
 
-        <div class="keypad" id="keypad">
-            <button class="key" onclick="pressKey('1')">1</button>
-            <button class="key" onclick="pressKey('2')">2</button>
-            <button class="key" onclick="pressKey('3')">3</button>
-            <button class="key key-action key-cancel" onclick="pressCancel()">CANCEL</button>
-            
-            <button class="key" onclick="pressKey('4')">4</button>
-            <button class="key" onclick="pressKey('5')">5</button>
-            <button class="key" onclick="pressKey('6')">6</button>
-            <button class="key key-action key-clear" onclick="pressClear()">CLEAR</button>
-            
-            <button class="key" onclick="pressKey('7')">7</button>
-            <button class="key" onclick="pressKey('8')">8</button>
-            <button class="key" onclick="pressKey('9')">9</button>
-            <button class="key key-action key-enter" onclick="pressEnter()">ENTER</button>
-            
-            <button class="key" style="visibility: hidden;">*</button>
-            <button class="key" onclick="pressKey('0')">0</button>
-            <button class="key" style="visibility: hidden;">#</button>
-            <button class="key key-action" style="visibility: hidden;"></button>
-        </div>
+                <button type="submit" id="addBtn">Add Employee</button>
+            </form>
+        </section>
+
+        <section class="table-section">
+            <table id="payrollTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Final Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeList">
+                    </tbody>
+            </table>
+        </section>
     </div>
 
-    <script>
-        // --- Simulated Database & State Management ---
-        let currentScreen = 'welcome';
-        let accountBalance = 5000;
-        const correctPin = "1234";
-        let activeInput = null;
-
-        // --- Screen Navigation Functions ---
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById('screen-' + screenId).classList.add('active');
-            currentScreen = screenId;
-
-            // Reset inputs when changing screens
-            if(screenId === 'pin') {
-                document.getElementById('pin-input').value = "";
-                document.getElementById('pin-error').innerText = "";
-                activeInput = document.getElementById('pin-input');
-            } else if (screenId === 'withdraw' || screenId === 'deposit') {
-                document.getElementById('amount-input').value = "";
-                document.getElementById('withdraw-error').innerText = "";
-                activeInput = document.getElementById('amount-input');
-            } else {
-                activeInput = null;
-            }
-        }
-
-        // --- Keypad Logic ---
-        function pressKey(num) {
-            if (activeInput) {
-                // Limit PIN length to 4
-                if (currentScreen === 'pin' && activeInput.value.length >= 4) return;
-                activeInput.value += num;
-            } else if (currentScreen === 'menu') {
-                handleMenuSelection(num);
-            }
-        }
-
-        function pressClear() {
-            if (activeInput) {
-                activeInput.value = "";
-            }
-        }
-
-        function pressCancel() {
-            showScreen('welcome');
-        }
-
-        function pressEnter() {
-            switch(currentScreen) {
-                case 'welcome':
-                    showScreen('pin');
-                    break;
-                case 'pin':
-                    validatePin();
-                    break;
-                case 'withdraw':
-                    processWithdrawal();
-                    break;
-            }
-        }
-
-        // --- Transaction Logic ---
-        function validatePin() {
-            const enteredPin = document.getElementById('pin-input').value;
-            if (enteredPin === correctPin) {
-                showScreen('menu');
-            } else {
-                document.getElementById('pin-error').innerText = "Incorrect PIN. Try again.";
-                document.getElementById('pin-input').value = "";
-            }
-        }
-
-        function handleMenuSelection(option) {
-            switch(option) {
-                case '1':
-                    showScreen('withdraw');
-                    break;
-                case '2':
-                    alert("Deposit feature under construction."); // Simplified for example
-                    break;
-                case '3':
-                    document.getElementById('success-message').innerText = `Your current balance is $${accountBalance}`;
-                    showScreen('success');
-                    break;
-                case '4':
-                    showScreen('welcome');
-                    break;
-            }
-        }
-
-        function processWithdrawal() {
-            const amount = parseInt(document.getElementById('amount-input').value);
-            const errorDiv = document.getElementById('withdraw-error');
-
-            if (isNaN(amount) || amount <= 0) {
-                errorDiv.innerText = "Please enter a valid amount.";
-                return;
-            }
-            if (amount % 10 !== 0) {
-                errorDiv.innerText = "Amount must be in multiples of 10.";
-                return;
-            }
-            if (amount > accountBalance) {
-                errorDiv.innerText = "Insufficient funds.";
-                return;
-            }
-
-            // Process success
-            accountBalance -= amount;
-            document.getElementById('success-message').innerText = `Please take your $${amount}. New Balance: $${accountBalance}`;
-            showScreen('success');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
