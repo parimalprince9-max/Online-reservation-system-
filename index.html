@@ -1,113 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ATM Management System</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ATM Pro System</title>
+
+<!-- Chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: white;
+:root{
+  --bg:#0b132b; --card:#1c2541; --text:#eaeaea; --accent:#5bc0be;
 }
-
-header {
-    text-align: center;
-    padding: 20px;
-    font-size: 30px;
-    background: rgba(0,0,0,0.5);
+.light{
+  --bg:#f2f2f2; --card:#ffffff; --text:#222; --accent:#0072ff;
 }
-
-.container {
-    padding: 30px;
+body{
+  margin:0; font-family:Arial;
+  background:var(--bg); color:var(--text); text-align:center;
 }
-
-.box {
-    background: white;
-    color: black;
-    padding: 20px;
-    margin: 20px auto;
-    width: 70%;
-    border-radius: 10px;
+.card{
+  width:360px; margin:40px auto; padding:20px;
+  background:var(--card); border-radius:12px;
+  box-shadow:0 0 15px black;
 }
-
-h2 {
-    color: #2c5364;
+input, select{
+  width:90%; padding:10px; margin:8px;
+  border:none; border-radius:5px;
 }
-
-button {
-    padding: 10px 20px;
-    background: #2c5364;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+button{
+  padding:10px 15px; margin:5px;
+  border:none; border-radius:5px;
+  background:var(--accent); cursor:pointer;
 }
-
-button:hover {
-    background: #0f2027;
+.hidden{display:none;}
+table{
+  width:100%; border-collapse:collapse; margin-top:10px;
 }
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background: rgba(0,0,0,0.5);
+th,td{
+  border:1px solid gray; padding:5px;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-    ATM Management System
-</header>
+<!-- MODE TOGGLE -->
+<button onclick="toggleMode()">🌗 Toggle Mode</button>
 
-<div class="container">
-
-    <div class="box">
-        <h2>Project Overview</h2>
-        <p>This project simulates an ATM system using Java and Object-Oriented Programming concepts.</p>
-    </div>
-
-    <div class="box">
-        <h2>Features</h2>
-        <ul>
-            <li>PIN Authentication</li>
-            <li>Balance Inquiry</li>
-            <li>Cash Withdrawal</li>
-            <li>Deposit Money</li>
-            <li>Mini Statement</li>
-        </ul>
-    </div>
-
-    <div class="box">
-        <h2>OOP Concepts Used</h2>
-        <ul>
-            <li>Encapsulation</li>
-            <li>Inheritance</li>
-            <li>Polymorphism</li>
-            <li>Abstraction</li>
-        </ul>
-    </div>
-
-    <div class="box">
-        <h2>ATM Demo</h2>
-        <button onclick="runATM()">Run Transaction</button>
-        <p id="result"></p>
-    </div>
-
+<!-- SIGNUP -->
+<div class="card" id="signupBox">
+<h2>Signup</h2>
+<input id="newUser" placeholder="User ID"/>
+<input id="newPin" placeholder="PIN"/>
+<button onclick="signup()">Create Account</button>
+<p id="signupMsg"></p>
 </div>
 
-<footer>
-    © 2026 ATM System | Developed by Parimal
-</footer>
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+<h2>Login</h2>
+<input id="userId" placeholder="User ID"/>
+<input id="pin" placeholder="PIN"/>
+<button onclick="login()">Login</button>
+<p id="loginMsg"></p>
+</div>
+
+<!-- ATM -->
+<div class="card hidden" id="atmBox">
+<h2>ATM Dashboard</h2>
+
+<p>User: <span id="userName"></span></p>
+<p>Balance: ₹<span id="balance"></span></p>
+
+<input id="amount" type="number" placeholder="Amount"/>
+
+<button onclick="deposit()">Deposit</button>
+<button onclick="withdraw()">Withdraw</button>
+
+<h3>Transactions</h3>
+<table>
+<thead><tr><th>Type</th><th>Amount</th><th>Time</th></tr></thead>
+<tbody id="history"></tbody>
+</table>
+
+<button onclick="downloadCSV()">Download CSV</button>
+
+<h3>Analytics</h3>
+<canvas id="chart"></canvas>
+
+<button onclick="logout()">Logout</button>
+<p id="msg"></p>
+</div>
 
 <script>
-function runATM() {
-    document.getElementById("result").innerHTML = "Transaction Successful! ₹1000 Withdrawn.";
+// STORAGE
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let currentUser=null;
+
+// SIGNUP
+function signup(){
+ let id=document.getElementById("newUser").value;
+ let pin=document.getElementById("newPin").value;
+ if(users[id]) return show("signupMsg","User exists");
+ users[id]={pin,balance:0,history:[],dep:0,with:0};
+ save(); show("signupMsg","Account created");
 }
+
+// LOGIN
+function login(){
+ let id=userId.value, p=pin.value;
+ if(users[id] && users[id].pin===p){
+   currentUser=users[id];
+   loadATM(id);
+ } else show("loginMsg","Invalid login");
+}
+
+// LOAD
+function loadATM(id){
+ loginBox.classList.add("hidden");
+ signupBox.classList.add("hidden");
+ atmBox.classList.remove("hidden");
+ userName.innerHTML=id;
+ update();
+ drawChart();
+ renderHistory();
+}
+
+// DEPOSIT
+function deposit(){
+ let amt=+amount.value;
+ if(amt>0){
+  currentUser.balance+=amt;
+  currentUser.dep+=amt;
+  addHist("Deposit",amt);
+ }
+}
+
+// WITHDRAW
+function withdraw(){
+ let amt=+amount.value;
+ if(amt<=currentUser.balance){
+  currentUser.balance-=amt;
+  currentUser.with+=amt;
+  addHist("Withdraw",amt);
+ } else show("msg","Low balance");
+}
+
+// HISTORY
+function addHist(type,amt){
+ currentUser.history.push({type,amt,time:new Date().toLocaleString()});
+ save(); update(); renderHistory(); drawChart();
+}
+
+// RENDER HISTORY
+function renderHistory(){
+ history.innerHTML=currentUser.history.map(h=>
+ `<tr><td>${h.type}</td><td>${h.amt}</td><td>${h.time}</td></tr>`
+ ).join("");
+}
+
+// CSV EXPORT
+function downloadCSV(){
+ let rows=currentUser.history.map(h=>`${h.type},${h.amt},${h.time}`).join("\n");
+ let blob=new Blob([rows],{type:"text/csv"});
+ let a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="transactions.csv"; a.click();
+}
+
+// UPDATE
+function update(){
+ balance.innerHTML=currentUser.balance;
+ save();
+}
+
+// SAVE
+function save(){
+ localStorage.setItem("users",JSON.stringify(users));
+}
+
+// CHART
+let chart;
+function drawChart(){
+ let ctx=document.getElementById("chart");
+ if(chart) chart.destroy();
+ chart=new Chart(ctx,{
+  type:"pie",
+  data:{
+    labels:["Deposit","Withdraw"],
+    datasets:[{data:[currentUser.dep,currentUser.with]}]
+  }
+ });
+}
+
+// MODE
+function toggleMode(){
+ document.body.classList.toggle("light");
+}
+
+// UTIL
+function show(id,msg){document.getElementById(id).innerHTML=msg;}
+
+// LOGOUT
+function logout(){location.reload();}
 </script>
 
 </body>
