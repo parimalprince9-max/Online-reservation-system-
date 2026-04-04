@@ -1,93 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Bank Account System</title>
+<meta charset="UTF-8">
+<title>ATM Management System</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #2c3e50, #3498db);
-            color: white;
-            text-align: center;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+}
 
-        header {
-            padding: 20px;
-            font-size: 30px;
-            font-weight: bold;
-            background: rgba(0,0,0,0.3);
-        }
+header {
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;
+    background: rgba(0,0,0,0.5);
+}
 
-        .container {
-            margin: 40px;
-        }
+.container {
+    padding: 30px;
+}
 
-        .box {
-            background: white;
-            color: black;
-            padding: 20px;
-            margin: 20px auto;
-            width: 60%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px black;
-        }
+.box {
+    background: white;
+    color: black;
+    padding: 20px;
+    margin: 20px auto;
+    width: 70%;
+    border-radius: 10px;
+}
 
-        h2 {
-            color: #2c3e50;
-        }
+h2 {
+    color: #2c5364;
+}
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            background: #3498db;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+button {
+    padding: 10px 20px;
+    background: #2c5364;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        button:hover {
-            background: #2c3e50;
-        }
-    </style>
+button:hover {
+    background: #0f2027;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: rgba(0,0,0,0.5);
+}
+</style>
+
 </head>
 
 <body>
 
 <header>
-    Bank Account System
+    ATM Management System
 </header>
 
 <div class="container">
 
     <div class="box">
-        <h2>Project Features</h2>
-        <p>Create Account, Deposit Money, Withdraw Money, Check Balance</p>
+        <h2>Project Overview</h2>
+        <p>This project simulates an ATM system using Java and Object-Oriented Programming concepts.</p>
+    </div>
+
+    <div class="box">
+        <h2>Features</h2>
+        <ul>
+            <li>PIN Authentication</li>
+            <li>Balance Inquiry</li>
+            <li>Cash Withdrawal</li>
+            <li>Deposit Money</li>
+            <li>Mini Statement</li>
+        </ul>
     </div>
 
     <div class="box">
         <h2>OOP Concepts Used</h2>
-        <p>Encapsulation, Inheritance, Polymorphism, Abstraction</p>
+        <ul>
+            <li>Encapsulation</li>
+            <li>Inheritance</li>
+            <li>Polymorphism</li>
+            <li>Abstraction</li>
+        </ul>
     </div>
 
     <div class="box">
-        <h2>About Project</h2>
-        <p>This Java project simulates a real banking system using Object-Oriented Programming concepts.</p>
-    </div>
-
-    <div class="box">
-        <h2>Demo Action</h2>
-        <button onclick="showMessage()">Click for Demo</button>
-        <p id="msg"></p>
+        <h2>ATM Demo</h2>
+        <button onclick="runATM()">Run Transaction</button>
+        <p id="result"></p>
     </div>
 
 </div>
 
+<footer>
+    © 2026 ATM System | Developed by Parimal
+</footer>
+
 <script>
-    function showMessage() {
-        document.getElementById("msg").innerHTML = "Transaction Successful!";
-    }
+function runATM() {
+    document.getElementById("result").innerHTML = "Transaction Successful! ₹1000 Withdrawn.";
+}
 </script>
 
 </body>
