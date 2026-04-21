@@ -1,83 +1,2393 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Payroll System</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<html lang="en" dir="ltr">
 
-    <div class="dashboard">
-        <header>
-            <h1>GlobalTech Payroll Manager</h1>
-            <p>Advanced Salary & Tax Computation System</p>
+<!-- ============================================================
+     DOCUMENT HEAD
+     Purpose: SEO metadata, social sharing tags, performance hints
+     ============================================================ -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Primary SEO Meta Tags -->
+  <title>ReservaHub | Online Reservation &amp; Booking System</title>
+  <meta name="description" content="ReservaHub — the fastest way to book hotels, tours, and experiences. Instant confirmation, secure payments, and 24/7 support. Reserve your next adventure today." />
+  <meta name="keywords" content="online reservation, hotel booking, travel booking, instant confirmation, reserve room, book tour, check availability" />
+  <meta name="author" content="ReservaHub Inc." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0B3D91" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.reservahub.com/" />
+
+  <!-- ── Open Graph / Social Sharing Tags ─────────────────────── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ReservaHub" />
+  <meta property="og:title" content="ReservaHub | Online Reservation &amp; Booking System" />
+  <meta property="og:description" content="Book hotels, tours, and experiences instantly. Secure, fast, and reliable reservation platform trusted by millions." />
+  <meta property="og:url" content="https://www.reservahub.com/" />
+  <meta property="og:image" content="https://www.reservahub.com/assets/og-cover.jpg" />
+  <meta property="og:image:alt" content="ReservaHub — beautiful destinations await you" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@reservahub" />
+  <meta name="twitter:title" content="ReservaHub | Online Reservation &amp; Booking System" />
+  <meta name="twitter:description" content="Book hotels, tours, and experiences instantly. Secure payments. Instant confirmation." />
+  <meta name="twitter:image" content="https://www.reservahub.com/assets/og-cover.jpg" />
+
+  <!-- ── Performance: Preconnect / DNS-Prefetch ────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.reservahub.com" />
+  <link rel="dns-prefetch" href="https://api.reservahub.com" />
+  <link rel="preload" as="image" href="https://www.reservahub.com/assets/hero-bg.webp" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Structured Data: JSON-LD for SEO (TravelAgency schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "ReservaHub",
+    "url": "https://www.reservahub.com",
+    "logo": "https://www.reservahub.com/assets/logo.svg",
+    "description": "Online reservation and booking platform for hotels, tours, and experiences.",
+    "sameAs": [
+      "https://twitter.com/reservahub",
+      "https://www.facebook.com/reservahub",
+      "https://www.instagram.com/reservahub"
+    ]
+  }
+  </script>
+</head>
+
+<body
+  class="page"
+  data-controller="page"
+  data-page-id="home"
+  data-env="production"
+>
+
+  <!-- ============================================================
+       SKIP NAVIGATION LINK
+       Accessibility: Allows keyboard/screen-reader users to jump
+       directly to the main content, bypassing repetitive nav.
+       ============================================================ -->
+  <a
+    class="skip-nav"
+    href="#main-content"
+    aria-label="Skip to main content"
+  >
+    Skip to main content
+  </a>
+
+  <!-- ============================================================
+       SITE HEADER & PRIMARY NAVIGATION
+       Role: banner landmark for assistive technologies
+       ============================================================ -->
+  <header
+    class="site-header"
+    role="banner"
+    data-controller="header"
+    data-sticky="true"
+  >
+    <div class="site-header__container">
+
+      <!-- ── Brand / Logo ───────────────────────────────────────── -->
+      <div class="site-header__brand">
+        <a
+          class="site-header__logo-link"
+          href="/"
+          aria-label="ReservaHub — Go to homepage"
+          data-action="navigate"
+          data-target="home"
+        >
+          <!-- Inline SVG logo placeholder; replaced by real SVG in production -->
+          <img
+            class="site-header__logo-img"
+            src="/assets/logo.svg"
+            alt="ReservaHub logo"
+            width="160"
+            height="40"
+            loading="eager"
+            decoding="async"
+          />
+        </a>
+      </div>
+
+      <!-- ── Hamburger Toggle (Mobile) ─────────────────────────── -->
+      <button
+        class="site-header__nav-toggle"
+        type="button"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+        data-action="toggle-nav"
+      >
+        <!-- Icon spans styled by CSS; aria-hidden prevents duplicate reading -->
+        <span class="site-header__nav-toggle-bar" aria-hidden="true"></span>
+        <span class="site-header__nav-toggle-bar" aria-hidden="true"></span>
+        <span class="site-header__nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <!-- ── Primary Navigation ─────────────────────────────────── -->
+      <nav
+        id="primary-navigation"
+        class="site-nav"
+        role="navigation"
+        aria-label="Primary navigation"
+        data-controller="nav"
+      >
+        <ul class="site-nav__list" role="list">
+
+          <li class="site-nav__item">
+            <a
+              class="site-nav__link site-nav__link--active"
+              href="/"
+              aria-current="page"
+              data-nav-item="home"
+            >
+              Home
+            </a>
+          </li>
+
+          <!-- Destinations dropdown -->
+          <li class="site-nav__item site-nav__item--dropdown">
+            <button
+              class="site-nav__link site-nav__dropdown-trigger"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="destinations-menu"
+              data-action="toggle-dropdown"
+              data-dropdown-id="destinations-menu"
+            >
+              Destinations &amp; Services
+              <span class="site-nav__dropdown-icon" aria-hidden="true">▾</span>
+            </button>
+            <ul
+              id="destinations-menu"
+              class="site-nav__dropdown"
+              role="menu"
+              aria-label="Destinations and Services submenu"
+              hidden
+            >
+              <li class="site-nav__dropdown-item" role="none">
+                <a class="site-nav__dropdown-link" href="/destinations/hotels" role="menuitem" data-nav-item="hotels">Hotels &amp; Resorts</a>
+              </li>
+              <li class="site-nav__dropdown-item" role="none">
+                <a class="site-nav__dropdown-link" href="/destinations/tours" role="menuitem" data-nav-item="tours">Guided Tours</a>
+              </li>
+              <li class="site-nav__dropdown-item" role="none">
+                <a class="site-nav__dropdown-link" href="/destinations/experiences" role="menuitem" data-nav-item="experiences">Experiences</a>
+              </li>
+              <li class="site-nav__dropdown-item" role="none">
+                <a class="site-nav__dropdown-link" href="/destinations/transfers" role="menuitem" data-nav-item="transfers">Airport Transfers</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="site-nav__item">
+            <a
+              class="site-nav__link"
+              href="/manage-booking"
+              data-nav-item="manage-booking"
+            >
+              Manage Booking
+            </a>
+          </li>
+
+          <li class="site-nav__item">
+            <a
+              class="site-nav__link"
+              href="/support"
+              data-nav-item="support"
+            >
+              Support
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- ── User Authentication Area ──────────────────────────── -->
+      <div
+        class="site-header__auth"
+        role="region"
+        aria-label="User account"
+        data-controller="auth"
+      >
+
+        <!--
+          STATE A: Unauthenticated — Login / Register buttons.
+          The data-auth-state attribute is toggled by the OOP
+          AuthController; only one state is visible at a time.
+        -->
+        <div
+          class="site-header__auth-guest"
+          data-auth-state="guest"
+          aria-label="Guest authentication options"
+        >
+          <a
+            class="btn btn--ghost btn--sm"
+            href="/auth/login"
+            role="button"
+            aria-label="Log in to your ReservaHub account"
+            data-action="navigate"
+            data-target="login"
+          >
+            Log In
+          </a>
+          <a
+            class="btn btn--primary btn--sm"
+            href="/auth/register"
+            role="button"
+            aria-label="Create a new ReservaHub account"
+            data-action="navigate"
+            data-target="register"
+          >
+            Register
+          </a>
+        </div>
+
+        <!--
+          STATE B: Authenticated — User Profile dropdown.
+          Hidden by default; AuthController removes hidden attribute
+          and populates data-user-name / data-user-avatar via API.
+        -->
+        <div
+          class="site-header__auth-user"
+          data-auth-state="authenticated"
+          data-user-id=""
+          data-user-name=""
+          data-user-avatar=""
+          hidden
+        >
+          <button
+            class="site-header__profile-trigger"
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="user-profile-menu"
+            aria-label="Open user profile menu"
+            data-action="toggle-profile-menu"
+          >
+            <img
+              class="site-header__avatar"
+              src="/assets/avatar-placeholder.webp"
+              alt=""
+              aria-hidden="true"
+              width="36"
+              height="36"
+            />
+            <span class="site-header__username" data-bind="user-name">Guest</span>
+            <span class="site-header__profile-icon" aria-hidden="true">▾</span>
+          </button>
+
+          <ul
+            id="user-profile-menu"
+            class="site-header__profile-menu"
+            role="menu"
+            aria-label="User profile options"
+            hidden
+          >
+            <li role="none">
+              <a class="site-header__profile-menu-link" href="/account/dashboard" role="menuitem" data-action="navigate" data-target="dashboard">My Dashboard</a>
+            </li>
+            <li role="none">
+              <a class="site-header__profile-menu-link" href="/account/bookings" role="menuitem" data-action="navigate" data-target="my-bookings">My Bookings</a>
+            </li>
+            <li role="none">
+              <a class="site-header__profile-menu-link" href="/account/profile" role="menuitem" data-action="navigate" data-target="profile">Profile Settings</a>
+            </li>
+            <li class="site-header__profile-menu-divider" role="separator" aria-hidden="true"></li>
+            <li role="none">
+              <button
+                class="site-header__profile-menu-link site-header__profile-menu-link--danger"
+                type="button"
+                role="menuitem"
+                aria-label="Log out of your account"
+                data-action="logout"
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /.site-header__auth -->
+
+    </div><!-- /.site-header__container -->
+
+    <!-- Live region: announces dynamic header updates (e.g., "Logged in as Jane") -->
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      id="header-announcer"
+      data-bind="header-status"
+    ></div>
+
+  </header><!-- /site-header -->
+
+
+  <!-- ============================================================
+       MAIN CONTENT
+       Role: main landmark; id used by the skip-nav link above
+       ============================================================ -->
+  <main
+    id="main-content"
+    class="site-main"
+    role="main"
+    tabindex="-1"
+    data-controller="main"
+  >
+
+    <!-- ==========================================================
+         SECTION 1: HERO
+         Purpose: First impression, brand statement, CTA funnel
+         ========================================================== -->
+    <section
+      id="hero"
+      class="hero"
+      aria-labelledby="hero-heading"
+      data-section="hero"
+      data-bg-image="/assets/hero-bg.webp"
+    >
+      <!--
+        Background image is intentionally set via data-bg-image
+        and applied by JS/CSS for performance. The <figure> below
+        is the accessible fallback and serves SEO crawlers.
+      -->
+      <figure
+        class="hero__bg-figure"
+        aria-hidden="true"
+        role="presentation"
+      >
+        <img
+          class="hero__bg-img"
+          src="/assets/hero-bg.webp"
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          width="1920"
+          height="1080"
+        />
+      </figure>
+
+      <!-- Dark overlay for text legibility -->
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="hero__content">
+
+        <!-- Primary H1 — only one per page for SEO hierarchy -->
+        <h1
+          id="hero-heading"
+          class="hero__heading"
+          data-animate="fade-up"
+        >
+          Your Next Adventure<br />
+          <span class="hero__heading-accent">Starts Here</span>
+        </h1>
+
+        <p
+          class="hero__subheadline"
+          data-animate="fade-up"
+          data-animate-delay="150"
+        >
+          Discover and instantly reserve world-class hotels, immersive tours, and one-of-a-kind experiences — all in one place. No hidden fees. No waiting.
+        </p>
+
+        <div
+          class="hero__cta-group"
+          data-animate="fade-up"
+          data-animate-delay="300"
+        >
+          <a
+            class="btn btn--primary btn--lg"
+            href="#booking-widget"
+            role="button"
+            aria-label="Start booking your reservation now"
+            data-action="scroll-to"
+            data-target="booking-widget"
+          >
+            Book Now
+          </a>
+          <a
+            class="btn btn--ghost btn--lg"
+            href="/destinations"
+            role="button"
+            aria-label="Explore available destinations and services"
+            data-action="navigate"
+            data-target="destinations"
+          >
+            Explore Destinations
+          </a>
+        </div>
+
+        <!-- Trust badges row -->
+        <ul
+          class="hero__trust-badges"
+          aria-label="Platform trust indicators"
+          role="list"
+        >
+          <li class="hero__trust-badge">
+            <!-- Icon is decorative; text carries the meaning -->
+            <span class="hero__trust-badge-icon" aria-hidden="true">★</span>
+            <span class="hero__trust-badge-text">4.9/5 Rating</span>
+          </li>
+          <li class="hero__trust-badge">
+            <span class="hero__trust-badge-icon" aria-hidden="true">✓</span>
+            <span class="hero__trust-badge-text">Instant Confirmation</span>
+          </li>
+          <li class="hero__trust-badge">
+            <span class="hero__trust-badge-icon" aria-hidden="true">🔒</span>
+            <span class="hero__trust-badge-text">Secure Payments</span>
+          </li>
+          <li class="hero__trust-badge">
+            <span class="hero__trust-badge-icon" aria-hidden="true">🌍</span>
+            <span class="hero__trust-badge-text">10,000+ Destinations</span>
+          </li>
+        </ul>
+
+      </div><!-- /.hero__content -->
+    </section><!-- /#hero -->
+
+
+    <!-- ==========================================================
+         SECTION 2: CORE BOOKING ENGINE
+         Purpose: The primary conversion mechanism.
+         Backend: BookingController binds to data-action attributes.
+         ========================================================== -->
+    <section
+      id="booking-widget"
+      class="booking-widget"
+      aria-labelledby="booking-widget-heading"
+      data-section="booking-widget"
+      data-controller="booking-widget"
+    >
+      <div class="booking-widget__container">
+
+        <header class="booking-widget__header">
+          <h2
+            id="booking-widget-heading"
+            class="booking-widget__heading"
+          >
+            Find &amp; Reserve
+          </h2>
+          <p class="booking-widget__subheading">
+            Search across thousands of listings and secure your spot in seconds.
+          </p>
         </header>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <h3>Total Employees</h3>
-                <h2 id="totalEmpCount">0</h2>
+        <!-- Tab Bar: Service Type Selection -->
+        <div
+          class="booking-widget__tabs"
+          role="tablist"
+          aria-label="Reservation type"
+          data-controller="tabs"
+          data-tabs-group="service-type"
+        >
+          <button
+            class="booking-widget__tab booking-widget__tab--active"
+            type="button"
+            role="tab"
+            id="tab-hotels"
+            aria-selected="true"
+            aria-controls="panel-hotels"
+            data-tab-id="hotels"
+            data-item-type="hotel"
+          >
+            <span aria-hidden="true">🏨</span> Hotels
+          </button>
+          <button
+            class="booking-widget__tab"
+            type="button"
+            role="tab"
+            id="tab-tours"
+            aria-selected="false"
+            aria-controls="panel-tours"
+            data-tab-id="tours"
+            data-item-type="tour"
+          >
+            <span aria-hidden="true">🗺️</span> Tours
+          </button>
+          <button
+            class="booking-widget__tab"
+            type="button"
+            role="tab"
+            id="tab-experiences"
+            aria-selected="false"
+            aria-controls="panel-experiences"
+            data-tab-id="experiences"
+            data-item-type="experience"
+          >
+            <span aria-hidden="true">✨</span> Experiences
+          </button>
+          <button
+            class="booking-widget__tab"
+            type="button"
+            role="tab"
+            id="tab-transfers"
+            aria-selected="false"
+            aria-controls="panel-transfers"
+            data-tab-id="transfers"
+            data-item-type="transfer"
+          >
+            <span aria-hidden="true">🚌</span> Transfers
+          </button>
+        </div><!-- /.booking-widget__tabs -->
+
+        <!-- ── PANEL: Hotels Search Form ────────────────────────── -->
+        <div
+          id="panel-hotels"
+          class="booking-widget__panel booking-widget__panel--active"
+          role="tabpanel"
+          aria-labelledby="tab-hotels"
+          data-panel-id="hotels"
+          data-item-type="hotel"
+        >
+          <form
+            class="booking-form"
+            id="booking-form-hotels"
+            method="POST"
+            action="/api/v1/reservations/search"
+            novalidate
+            autocomplete="on"
+            aria-labelledby="booking-form-hotels-legend"
+            data-controller="booking-form"
+            data-action="submit-reservation"
+            data-item-type="hotel"
+            data-form-version="2"
+          >
+
+            <!-- Hidden fields for OOP backend binding -->
+            <input type="hidden" name="service_type" value="hotel" data-field="service-type" />
+            <input type="hidden" name="currency" value="USD" data-field="currency" />
+            <input type="hidden" name="_csrf_token" value="" data-field="csrf-token" data-bind="csrf" />
+
+            <!-- FIELDSET 1: Destination -->
+            <fieldset
+              class="booking-form__fieldset"
+              data-fieldset="destination"
+            >
+              <legend
+                id="booking-form-hotels-legend"
+                class="booking-form__legend"
+              >
+                Search for Hotels
+              </legend>
+
+              <div class="booking-form__input-group booking-form__input-group--full">
+                <label
+                  class="booking-form__label"
+                  for="hotel-destination"
+                >
+                  Destination or Property Name
+                  <span class="booking-form__required" aria-hidden="true">*</span>
+                </label>
+                <div class="booking-form__input-wrapper booking-form__input-wrapper--icon">
+                  <span
+                    class="booking-form__input-icon"
+                    aria-hidden="true"
+                    role="presentation"
+                  >📍</span>
+                  <input
+                    class="booking-form__input"
+                    type="search"
+                    id="hotel-destination"
+                    name="destination"
+                    placeholder="City, region, or hotel name…"
+                    required
+                    autocomplete="off"
+                    aria-required="true"
+                    aria-describedby="hotel-destination-hint hotel-destination-error"
+                    aria-autocomplete="list"
+                    aria-controls="destination-suggestions"
+                    aria-haspopup="listbox"
+                    maxlength="150"
+                    spellcheck="false"
+                    data-field="destination"
+                    data-action="search-destination"
+                  />
+                  <!-- Autocomplete suggestions populated by DestinationSearchController -->
+                  <ul
+                    id="destination-suggestions"
+                    class="booking-form__autocomplete"
+                    role="listbox"
+                    aria-label="Destination suggestions"
+                    hidden
+                    data-controller="autocomplete"
+                    data-bind="destination-suggestions"
+                  ></ul>
+                </div>
+                <span
+                  id="hotel-destination-hint"
+                  class="booking-form__hint"
+                >
+                  Enter a city, country, or specific property.
+                </span>
+                <span
+                  id="hotel-destination-error"
+                  class="booking-form__error"
+                  role="alert"
+                  aria-live="assertive"
+                  hidden
+                  data-bind="destination-error"
+                >
+                  Please enter a destination.
+                </span>
+              </div><!-- /.booking-form__input-group -->
+
+            </fieldset><!-- /fieldset: destination -->
+
+
+            <!-- FIELDSET 2: Stay Dates -->
+            <fieldset
+              class="booking-form__fieldset"
+              data-fieldset="dates"
+            >
+              <legend class="booking-form__legend">Stay Dates</legend>
+
+              <div class="booking-form__row">
+
+                <!-- Check-in Date -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-check-in"
+                  >
+                    Check-in Date
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--date"
+                    type="date"
+                    id="hotel-check-in"
+                    name="check_in_date"
+                    required
+                    aria-required="true"
+                    aria-describedby="hotel-check-in-error"
+                    data-field="check-in-date"
+                    data-action="validate-date-range"
+                    data-min-offset-days="0"
+                  />
+                  <span
+                    id="hotel-check-in-error"
+                    class="booking-form__error"
+                    role="alert"
+                    aria-live="assertive"
+                    hidden
+                    data-bind="check-in-error"
+                  >
+                    Please select a valid check-in date.
+                  </span>
+                </div>
+
+                <!-- Check-out Date -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-check-out"
+                  >
+                    Check-out Date
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--date"
+                    type="date"
+                    id="hotel-check-out"
+                    name="check_out_date"
+                    required
+                    aria-required="true"
+                    aria-describedby="hotel-check-out-hint hotel-check-out-error"
+                    data-field="check-out-date"
+                    data-action="validate-date-range"
+                    data-depends-on="hotel-check-in"
+                  />
+                  <span
+                    id="hotel-check-out-hint"
+                    class="booking-form__hint"
+                  >
+                    Must be after check-in date.
+                  </span>
+                  <span
+                    id="hotel-check-out-error"
+                    class="booking-form__error"
+                    role="alert"
+                    aria-live="assertive"
+                    hidden
+                    data-bind="check-out-error"
+                  >
+                    Check-out must be after check-in.
+                  </span>
+                </div>
+
+              </div><!-- /.booking-form__row -->
+            </fieldset><!-- /fieldset: dates -->
+
+
+            <!-- FIELDSET 3: Guests & Rooms -->
+            <fieldset
+              class="booking-form__fieldset"
+              data-fieldset="guests"
+            >
+              <legend class="booking-form__legend">Guests &amp; Rooms</legend>
+
+              <div class="booking-form__row">
+
+                <!-- Adults -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-adults"
+                  >
+                    Adults
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--number"
+                    type="number"
+                    id="hotel-adults"
+                    name="adults"
+                    value="2"
+                    min="1"
+                    max="20"
+                    required
+                    aria-required="true"
+                    aria-describedby="hotel-adults-hint hotel-adults-error"
+                    data-field="adults"
+                    data-action="update-guest-count"
+                  />
+                  <span id="hotel-adults-hint" class="booking-form__hint">Age 18+</span>
+                  <span
+                    id="hotel-adults-error"
+                    class="booking-form__error"
+                    role="alert"
+                    aria-live="assertive"
+                    hidden
+                    data-bind="adults-error"
+                  >
+                    At least 1 adult is required.
+                  </span>
+                </div>
+
+                <!-- Children -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-children"
+                  >
+                    Children
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--number"
+                    type="number"
+                    id="hotel-children"
+                    name="children"
+                    value="0"
+                    min="0"
+                    max="10"
+                    aria-describedby="hotel-children-hint"
+                    data-field="children"
+                    data-action="update-guest-count"
+                  />
+                  <span id="hotel-children-hint" class="booking-form__hint">Age 0–17</span>
+                </div>
+
+                <!-- Rooms -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-rooms"
+                  >
+                    Rooms
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--number"
+                    type="number"
+                    id="hotel-rooms"
+                    name="rooms"
+                    value="1"
+                    min="1"
+                    max="30"
+                    required
+                    aria-required="true"
+                    aria-describedby="hotel-rooms-error"
+                    data-field="rooms"
+                    data-action="update-room-count"
+                  />
+                  <span
+                    id="hotel-rooms-error"
+                    class="booking-form__error"
+                    role="alert"
+                    aria-live="assertive"
+                    hidden
+                    data-bind="rooms-error"
+                  >
+                    At least 1 room is required.
+                  </span>
+                </div>
+
+              </div><!-- /.booking-form__row -->
+            </fieldset><!-- /fieldset: guests -->
+
+
+            <!-- FIELDSET 4: Optional Preferences -->
+            <fieldset
+              class="booking-form__fieldset booking-form__fieldset--optional"
+              data-fieldset="preferences"
+            >
+              <legend class="booking-form__legend">
+                Preferences
+                <span class="booking-form__legend-optional">(Optional)</span>
+              </legend>
+
+              <div class="booking-form__row">
+
+                <!-- Star Rating -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-star-rating"
+                  >
+                    Minimum Star Rating
+                  </label>
+                  <select
+                    class="booking-form__select"
+                    id="hotel-star-rating"
+                    name="min_star_rating"
+                    aria-describedby="hotel-star-rating-hint"
+                    data-field="star-rating"
+                  >
+                    <option value="">Any rating</option>
+                    <option value="3">3 Stars &amp; above</option>
+                    <option value="4">4 Stars &amp; above</option>
+                    <option value="5">5 Stars only</option>
+                  </select>
+                  <span id="hotel-star-rating-hint" class="booking-form__hint">
+                    Filter by hotel category.
+                  </span>
+                </div>
+
+                <!-- Promo Code -->
+                <div class="booking-form__input-group">
+                  <label
+                    class="booking-form__label"
+                    for="hotel-promo-code"
+                  >
+                    Promo / Coupon Code
+                  </label>
+                  <input
+                    class="booking-form__input"
+                    type="text"
+                    id="hotel-promo-code"
+                    name="promo_code"
+                    placeholder="e.g. SAVE20"
+                    autocomplete="off"
+                    maxlength="30"
+                    pattern="[A-Z0-9]{3,30}"
+                    aria-describedby="hotel-promo-code-hint"
+                    data-field="promo-code"
+                    data-action="validate-promo"
+                  />
+                  <span id="hotel-promo-code-hint" class="booking-form__hint">
+                    Uppercase letters and numbers only.
+                  </span>
+                </div>
+
+              </div><!-- /.booking-form__row -->
+            </fieldset><!-- /fieldset: preferences -->
+
+
+            <!-- Form Actions -->
+            <div
+              class="booking-form__actions"
+              data-fieldset="actions"
+            >
+              <!-- Live region announces search results count or errors -->
+              <div
+                id="booking-form-status"
+                class="booking-form__status sr-only"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+                data-bind="form-status"
+              ></div>
+
+              <button
+                class="btn btn--primary btn--xl booking-form__submit"
+                type="submit"
+                aria-label="Search for available hotels based on your criteria"
+                data-action="submit-reservation"
+                data-item-type="hotel"
+                data-booking-id=""
+                data-loading-text="Searching…"
+              >
+                <span class="btn__text">Search Hotels</span>
+                <span
+                  class="btn__spinner"
+                  aria-hidden="true"
+                  hidden
+                ></span>
+              </button>
+
+            </div><!-- /.booking-form__actions -->
+
+          </form><!-- /#booking-form-hotels -->
+        </div><!-- /#panel-hotels -->
+
+
+        <!-- ── PANEL: Tours Search Form (structure mirrors Hotels panel) -->
+        <div
+          id="panel-tours"
+          class="booking-widget__panel"
+          role="tabpanel"
+          aria-labelledby="tab-tours"
+          data-panel-id="tours"
+          data-item-type="tour"
+          hidden
+        >
+          <form
+            class="booking-form"
+            id="booking-form-tours"
+            method="POST"
+            action="/api/v1/reservations/search"
+            novalidate
+            autocomplete="on"
+            aria-labelledby="booking-form-tours-legend"
+            data-controller="booking-form"
+            data-action="submit-reservation"
+            data-item-type="tour"
+          >
+            <input type="hidden" name="service_type" value="tour" />
+            <input type="hidden" name="_csrf_token" value="" data-bind="csrf" />
+
+            <fieldset class="booking-form__fieldset">
+              <legend id="booking-form-tours-legend" class="booking-form__legend">Search for Tours</legend>
+
+              <div class="booking-form__row">
+
+                <div class="booking-form__input-group booking-form__input-group--wide">
+                  <label class="booking-form__label" for="tour-destination">
+                    Destination or Tour Name
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input"
+                    type="search"
+                    id="tour-destination"
+                    name="destination"
+                    placeholder="Where do you want to explore?"
+                    required
+                    aria-required="true"
+                    aria-describedby="tour-destination-error"
+                    data-field="destination"
+                    data-action="search-destination"
+                  />
+                  <span id="tour-destination-error" class="booking-form__error" role="alert" aria-live="assertive" hidden data-bind="tour-destination-error">Please enter a destination.</span>
+                </div>
+
+                <div class="booking-form__input-group">
+                  <label class="booking-form__label" for="tour-date">
+                    Tour Date
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--date"
+                    type="date"
+                    id="tour-date"
+                    name="tour_date"
+                    required
+                    aria-required="true"
+                    aria-describedby="tour-date-error"
+                    data-field="tour-date"
+                  />
+                  <span id="tour-date-error" class="booking-form__error" role="alert" aria-live="assertive" hidden data-bind="tour-date-error">Please select a tour date.</span>
+                </div>
+
+                <div class="booking-form__input-group">
+                  <label class="booking-form__label" for="tour-guests">
+                    Participants
+                    <span class="booking-form__required" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="booking-form__input booking-form__input--number"
+                    type="number"
+                    id="tour-guests"
+                    name="participants"
+                    value="1"
+                    min="1"
+                    max="50"
+                    required
+                    aria-required="true"
+                    aria-describedby="tour-guests-error"
+                    data-field="guests"
+                    data-action="update-guest-count"
+                  />
+                  <span id="tour-guests-error" class="booking-form__error" role="alert" aria-live="assertive" hidden data-bind="tour-guests-error">At least 1 participant is required.</span>
+                </div>
+
+              </div>
+
+            </fieldset>
+
+            <div class="booking-form__actions">
+              <button
+                class="btn btn--primary btn--xl booking-form__submit"
+                type="submit"
+                aria-label="Search for available tours"
+                data-action="submit-reservation"
+                data-item-type="tour"
+              >
+                <span class="btn__text">Search Tours</span>
+              </button>
             </div>
-            <div class="stat-card">
-                <h3>Total Net Payroll</h3>
-                <h2 id="totalPayrollAmt">$0.00</h2>
+
+          </form>
+        </div><!-- /#panel-tours -->
+
+        <!-- Panels for Experiences and Transfers follow the same pattern.
+             Omitted for brevity; structure is identical with appropriate
+             data-item-type values: "experience" and "transfer". -->
+
+      </div><!-- /.booking-widget__container -->
+    </section><!-- /#booking-widget -->
+
+
+    <!-- ==========================================================
+         SECTION 3: FEATURED LISTINGS
+         Purpose: Social proof and editorial curation.
+         Backend: ListingController binds data-listing-id per card.
+         ========================================================== -->
+    <section
+      id="featured"
+      class="featured"
+      aria-labelledby="featured-heading"
+      data-section="featured"
+      data-controller="featured-listings"
+    >
+      <div class="featured__container">
+
+        <header class="featured__header">
+          <h2 id="featured-heading" class="featured__heading">
+            Handpicked for You
+          </h2>
+          <p class="featured__subheading">
+            Our curators select only the most extraordinary properties and experiences worldwide.
+          </p>
+          <a
+            class="featured__view-all"
+            href="/destinations"
+            aria-label="View all available destinations and listings"
+            data-action="navigate"
+            data-target="all-listings"
+          >
+            View All Listings
+            <span aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <!-- Listing cards grid -->
+        <ul
+          class="featured__grid"
+          role="list"
+          aria-label="Featured reservation listings"
+        >
+
+          <!-- ── Card 1: Hotel ──────────────────────────────────── -->
+          <li class="featured__grid-item" role="listitem">
+            <article
+              class="listing-card"
+              aria-labelledby="listing-card-1-title"
+              aria-describedby="listing-card-1-desc"
+              data-controller="listing-card"
+              data-listing-id="LST-00147"
+              data-item-type="hotel"
+              data-item-slug="grand-palace-santorini"
+              data-price-base="320"
+              data-currency="USD"
+              data-availability="available"
+            >
+
+              <!-- Card image -->
+              <figure class="listing-card__figure">
+                <a
+                  class="listing-card__img-link"
+                  href="/listings/grand-palace-santorini"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  data-action="navigate"
+                  data-target="listing-detail"
+                  data-listing-id="LST-00147"
+                >
+                  <img
+                    class="listing-card__img"
+                    src="/assets/listings/grand-palace-santorini-thumb.webp"
+                    alt="Infinity pool overlooking Santorini caldera at sunset at Grand Palace"
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <!-- Availability badge -->
+                <span
+                  class="listing-card__badge listing-card__badge--available"
+                  aria-label="Availability status: Available"
+                  data-bind="availability-badge"
+                >
+                  Available
+                </span>
+                <!-- Wishlist toggle -->
+                <button
+                  class="listing-card__wishlist-btn"
+                  type="button"
+                  aria-label="Add Grand Palace Santorini to wishlist"
+                  aria-pressed="false"
+                  data-action="toggle-wishlist"
+                  data-listing-id="LST-00147"
+                >
+                  <span aria-hidden="true">♡</span>
+                </button>
+              </figure>
+
+              <div class="listing-card__body">
+
+                <!-- Category tag -->
+                <span
+                  class="listing-card__category"
+                  aria-label="Property type: Hotel"
+                >
+                  Hotel · Santorini, Greece
+                </span>
+
+                <!-- Title -->
+                <h3
+                  id="listing-card-1-title"
+                  class="listing-card__title"
+                >
+                  <a
+                    class="listing-card__title-link"
+                    href="/listings/grand-palace-santorini"
+                    data-action="navigate"
+                    data-target="listing-detail"
+                    data-listing-id="LST-00147"
+                  >
+                    Grand Palace Santorini
+                  </a>
+                </h3>
+
+                <!-- Star rating (visual + accessible text) -->
+                <div
+                  class="listing-card__rating"
+                  aria-label="Guest rating: 4.9 out of 5 stars, based on 1,284 reviews"
+                  data-rating="4.9"
+                  data-review-count="1284"
+                >
+                  <span class="listing-card__stars" aria-hidden="true">
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--half" aria-hidden="true">★</span>
+                  </span>
+                  <span class="listing-card__rating-score">4.9</span>
+                  <span class="listing-card__review-count">(1,284 reviews)</span>
+                </div>
+
+                <!-- Short description -->
+                <p
+                  id="listing-card-1-desc"
+                  class="listing-card__description"
+                >
+                  Perched on the cliffside with breathtaking caldera views, this iconic 5-star retreat features an infinity pool, world-class spa, and bespoke Cycladic architecture.
+                </p>
+
+                <!-- Amenities snippet -->
+                <ul
+                  class="listing-card__amenities"
+                  aria-label="Key amenities"
+                  role="list"
+                >
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🍳</span>
+                    <span class="listing-card__amenity-text">Breakfast Included</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🏊</span>
+                    <span class="listing-card__amenity-text">Infinity Pool</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🛁</span>
+                    <span class="listing-card__amenity-text">Private Jacuzzi</span>
+                  </li>
+                </ul>
+
+              </div><!-- /.listing-card__body -->
+
+              <!-- Card footer: price + CTA -->
+              <footer class="listing-card__footer">
+                <div class="listing-card__pricing">
+                  <span class="listing-card__price-label">From</span>
+                  <span
+                    class="listing-card__price"
+                    aria-label="Price from 320 US dollars per night"
+                    data-bind="price-display"
+                    data-price="320"
+                    data-currency="USD"
+                  >
+                    $320
+                  </span>
+                  <span class="listing-card__price-unit">/ night</span>
+                </div>
+                <a
+                  class="btn btn--primary btn--sm listing-card__book-btn"
+                  href="/listings/grand-palace-santorini?action=book"
+                  role="button"
+                  aria-label="Book Grand Palace Santorini — from $320 per night"
+                  data-action="initiate-booking"
+                  data-listing-id="LST-00147"
+                  data-item-type="hotel"
+                  data-booking-id=""
+                >
+                  Book Now
+                </a>
+              </footer>
+
+            </article>
+          </li><!-- /Card 1 -->
+
+
+          <!-- ── Card 2: Tour ──────────────────────────────────── -->
+          <li class="featured__grid-item" role="listitem">
+            <article
+              class="listing-card"
+              aria-labelledby="listing-card-2-title"
+              aria-describedby="listing-card-2-desc"
+              data-controller="listing-card"
+              data-listing-id="LST-00293"
+              data-item-type="tour"
+              data-item-slug="amazon-rainforest-expedition"
+              data-price-base="850"
+              data-currency="USD"
+              data-availability="limited"
+            >
+              <figure class="listing-card__figure">
+                <a
+                  class="listing-card__img-link"
+                  href="/listings/amazon-rainforest-expedition"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  data-action="navigate"
+                  data-target="listing-detail"
+                  data-listing-id="LST-00293"
+                >
+                  <img
+                    class="listing-card__img"
+                    src="/assets/listings/amazon-rainforest-expedition-thumb.webp"
+                    alt="Canopy walkway through the Amazon rainforest at dawn during the guided expedition"
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <span
+                  class="listing-card__badge listing-card__badge--limited"
+                  aria-label="Availability status: Limited spots remaining"
+                  data-bind="availability-badge"
+                >
+                  Limited Spots
+                </span>
+                <button
+                  class="listing-card__wishlist-btn"
+                  type="button"
+                  aria-label="Add Amazon Rainforest Expedition to wishlist"
+                  aria-pressed="false"
+                  data-action="toggle-wishlist"
+                  data-listing-id="LST-00293"
+                >
+                  <span aria-hidden="true">♡</span>
+                </button>
+              </figure>
+
+              <div class="listing-card__body">
+                <span class="listing-card__category" aria-label="Type: Guided Tour">
+                  Guided Tour · Amazon Basin, Brazil
+                </span>
+                <h3 id="listing-card-2-title" class="listing-card__title">
+                  <a
+                    class="listing-card__title-link"
+                    href="/listings/amazon-rainforest-expedition"
+                    data-action="navigate"
+                    data-target="listing-detail"
+                    data-listing-id="LST-00293"
+                  >
+                    Amazon Rainforest Expedition
+                  </a>
+                </h3>
+                <div
+                  class="listing-card__rating"
+                  aria-label="Guest rating: 4.8 out of 5 stars, based on 417 reviews"
+                  data-rating="4.8"
+                  data-review-count="417"
+                >
+                  <span class="listing-card__stars" aria-hidden="true">
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--half" aria-hidden="true">★</span>
+                  </span>
+                  <span class="listing-card__rating-score">4.8</span>
+                  <span class="listing-card__review-count">(417 reviews)</span>
+                </div>
+                <p id="listing-card-2-desc" class="listing-card__description">
+                  A 7-day deep-jungle adventure led by expert naturalists. Navigate the world's largest river system, spot rare wildlife, and sleep under the stars in luxury eco-camps.
+                </p>
+                <ul class="listing-card__amenities" aria-label="Key inclusions" role="list">
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🛶</span>
+                    <span class="listing-card__amenity-text">River Navigation</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🍽️</span>
+                    <span class="listing-card__amenity-text">All Meals</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🔭</span>
+                    <span class="listing-card__amenity-text">Expert Guide</span>
+                  </li>
+                </ul>
+              </div>
+
+              <footer class="listing-card__footer">
+                <div class="listing-card__pricing">
+                  <span class="listing-card__price-label">From</span>
+                  <span
+                    class="listing-card__price"
+                    aria-label="Price from 850 US dollars per person"
+                    data-bind="price-display"
+                    data-price="850"
+                    data-currency="USD"
+                  >
+                    $850
+                  </span>
+                  <span class="listing-card__price-unit">/ person</span>
+                </div>
+                <a
+                  class="btn btn--primary btn--sm listing-card__book-btn"
+                  href="/listings/amazon-rainforest-expedition?action=book"
+                  role="button"
+                  aria-label="Book Amazon Rainforest Expedition — from $850 per person"
+                  data-action="initiate-booking"
+                  data-listing-id="LST-00293"
+                  data-item-type="tour"
+                  data-booking-id=""
+                >
+                  Book Now
+                </a>
+              </footer>
+
+            </article>
+          </li><!-- /Card 2 -->
+
+
+          <!-- ── Card 3: Experience ─────────────────────────────── -->
+          <li class="featured__grid-item" role="listitem">
+            <article
+              class="listing-card"
+              aria-labelledby="listing-card-3-title"
+              aria-describedby="listing-card-3-desc"
+              data-controller="listing-card"
+              data-listing-id="LST-00581"
+              data-item-type="experience"
+              data-item-slug="northern-lights-photography-lapland"
+              data-price-base="175"
+              data-currency="USD"
+              data-availability="available"
+            >
+              <figure class="listing-card__figure">
+                <a
+                  class="listing-card__img-link"
+                  href="/listings/northern-lights-photography-lapland"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  data-action="navigate"
+                  data-target="listing-detail"
+                  data-listing-id="LST-00581"
+                >
+                  <img
+                    class="listing-card__img"
+                    src="/assets/listings/northern-lights-lapland-thumb.webp"
+                    alt="Aurora borealis dancing in green and purple above a frozen lake in Finnish Lapland"
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <span
+                  class="listing-card__badge listing-card__badge--available"
+                  aria-label="Availability status: Available"
+                  data-bind="availability-badge"
+                >
+                  Available
+                </span>
+                <button
+                  class="listing-card__wishlist-btn"
+                  type="button"
+                  aria-label="Add Northern Lights Photography to wishlist"
+                  aria-pressed="false"
+                  data-action="toggle-wishlist"
+                  data-listing-id="LST-00581"
+                >
+                  <span aria-hidden="true">♡</span>
+                </button>
+              </figure>
+
+              <div class="listing-card__body">
+                <span class="listing-card__category" aria-label="Type: Experience">
+                  Experience · Rovaniemi, Finland
+                </span>
+                <h3 id="listing-card-3-title" class="listing-card__title">
+                  <a
+                    class="listing-card__title-link"
+                    href="/listings/northern-lights-photography-lapland"
+                    data-action="navigate"
+                    data-target="listing-detail"
+                    data-listing-id="LST-00581"
+                  >
+                    Northern Lights Photography Tour
+                  </a>
+                </h3>
+                <div
+                  class="listing-card__rating"
+                  aria-label="Guest rating: 5 out of 5 stars, based on 892 reviews"
+                  data-rating="5.0"
+                  data-review-count="892"
+                >
+                  <span class="listing-card__stars" aria-hidden="true">
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                    <span class="listing-card__star listing-card__star--filled" aria-hidden="true">★</span>
+                  </span>
+                  <span class="listing-card__rating-score">5.0</span>
+                  <span class="listing-card__review-count">(892 reviews)</span>
+                </div>
+                <p id="listing-card-3-desc" class="listing-card__description">
+                  Chase the aurora with a professional astrophotographer. Includes all camera equipment, a warm lakeside cabin base, and reindeer-drawn sleigh transport across the tundra.
+                </p>
+                <ul class="listing-card__amenities" aria-label="Key inclusions" role="list">
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">📷</span>
+                    <span class="listing-card__amenity-text">Equipment Provided</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">🦌</span>
+                    <span class="listing-card__amenity-text">Sleigh Transfer</span>
+                  </li>
+                  <li class="listing-card__amenity">
+                    <span aria-hidden="true">☕</span>
+                    <span class="listing-card__amenity-text">Hot Drinks</span>
+                  </li>
+                </ul>
+              </div>
+
+              <footer class="listing-card__footer">
+                <div class="listing-card__pricing">
+                  <span class="listing-card__price-label">From</span>
+                  <span
+                    class="listing-card__price"
+                    aria-label="Price from 175 US dollars per person"
+                    data-bind="price-display"
+                    data-price="175"
+                    data-currency="USD"
+                  >
+                    $175
+                  </span>
+                  <span class="listing-card__price-unit">/ person</span>
+                </div>
+                <a
+                  class="btn btn--primary btn--sm listing-card__book-btn"
+                  href="/listings/northern-lights-photography-lapland?action=book"
+                  role="button"
+                  aria-label="Book Northern Lights Photography Tour — from $175 per person"
+                  data-action="initiate-booking"
+                  data-listing-id="LST-00581"
+                  data-item-type="experience"
+                  data-booking-id=""
+                >
+                  Book Now
+                </a>
+              </footer>
+
+            </article>
+          </li><!-- /Card 3 -->
+
+        </ul><!-- /.featured__grid -->
+
+      </div><!-- /.featured__container -->
+    </section><!-- /#featured -->
+
+
+    <!-- ==========================================================
+         SECTION 4: WHY CHOOSE US / BENEFITS
+         Purpose: Trust building, objection handling, conversion.
+         ========================================================== -->
+    <section
+      id="benefits"
+      class="benefits"
+      aria-labelledby="benefits-heading"
+      data-section="benefits"
+    >
+      <div class="benefits__container">
+
+        <header class="benefits__header">
+          <h2 id="benefits-heading" class="benefits__heading">
+            Why Millions Choose ReservaHub
+          </h2>
+          <p class="benefits__subheading">
+            Built for travelers who demand reliability, transparency, and world-class service at every touchpoint.
+          </p>
+        </header>
+
+        <ul
+          class="benefits__grid"
+          role="list"
+          aria-label="Platform benefits"
+        >
+
+          <!-- Benefit 1: Secure Payments -->
+          <li class="benefits__item" role="listitem">
+            <article
+              class="benefit-card"
+              aria-labelledby="benefit-1-title"
+              data-benefit-id="secure-payments"
+            >
+              <div class="benefit-card__icon-wrapper" aria-hidden="true">
+                <span class="benefit-card__icon">🔒</span>
+              </div>
+              <h3 id="benefit-1-title" class="benefit-card__title">
+                Bank-Grade Security
+              </h3>
+              <p class="benefit-card__description">
+                Every transaction is encrypted with 256-bit TLS and processed through PCI-DSS Level 1 certified gateways. Your payment data never touches our servers.
+              </p>
+              <a
+                class="benefit-card__learn-more"
+                href="/trust/security"
+                aria-label="Learn more about our bank-grade payment security"
+                data-action="navigate"
+                data-target="security-page"
+              >
+                Learn more
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </li>
+
+          <!-- Benefit 2: Instant Confirmation -->
+          <li class="benefits__item" role="listitem">
+            <article
+              class="benefit-card"
+              aria-labelledby="benefit-2-title"
+              data-benefit-id="instant-confirmation"
+            >
+              <div class="benefit-card__icon-wrapper" aria-hidden="true">
+                <span class="benefit-card__icon">⚡</span>
+              </div>
+              <h3 id="benefit-2-title" class="benefit-card__title">
+                Instant Confirmation
+              </h3>
+              <p class="benefit-card__description">
+                Receive your booking confirmation and e-voucher within seconds of payment. No waiting, no uncertainty — your plans are locked in immediately.
+              </p>
+              <a
+                class="benefit-card__learn-more"
+                href="/trust/how-it-works"
+                aria-label="Learn how our instant confirmation system works"
+                data-action="navigate"
+                data-target="how-it-works"
+              >
+                Learn more
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </li>
+
+          <!-- Benefit 3: 24/7 Expert Support -->
+          <li class="benefits__item" role="listitem">
+            <article
+              class="benefit-card"
+              aria-labelledby="benefit-3-title"
+              data-benefit-id="expert-support"
+            >
+              <div class="benefit-card__icon-wrapper" aria-hidden="true">
+                <span class="benefit-card__icon">🎧</span>
+              </div>
+              <h3 id="benefit-3-title" class="benefit-card__title">
+                24/7 Expert Support
+              </h3>
+              <p class="benefit-card__description">
+                Our multilingual travel specialists are on call round the clock via live chat, phone, and email. Real people, real answers — whenever you need them.
+              </p>
+              <a
+                class="benefit-card__learn-more"
+                href="/support"
+                aria-label="Contact our 24/7 expert support team"
+                data-action="navigate"
+                data-target="support"
+              >
+                Contact support
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </li>
+
+          <!-- Benefit 4: Free Cancellation -->
+          <li class="benefits__item" role="listitem">
+            <article
+              class="benefit-card"
+              aria-labelledby="benefit-4-title"
+              data-benefit-id="free-cancellation"
+            >
+              <div class="benefit-card__icon-wrapper" aria-hidden="true">
+                <span class="benefit-card__icon">↩️</span>
+              </div>
+              <h3 id="benefit-4-title" class="benefit-card__title">
+                Flexible Cancellation
+              </h3>
+              <p class="benefit-card__description">
+                Plans change. Over 85% of our listings offer free cancellation up to 48 hours before arrival. Book with confidence — no lock-in anxiety.
+              </p>
+              <a
+                class="benefit-card__learn-more"
+                href="/trust/cancellation-policy"
+                aria-label="Read our flexible cancellation policy details"
+                data-action="navigate"
+                data-target="cancellation-policy"
+              >
+                View policy
+                <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          </li>
+
+        </ul><!-- /.benefits__grid -->
+
+        <!-- Metrics / Social Proof Bar -->
+        <div
+          class="benefits__stats"
+          aria-label="Platform statistics"
+          role="region"
+          data-controller="stats-counter"
+        >
+          <dl class="benefits__stats-list">
+            <div class="benefits__stat">
+              <dt class="benefits__stat-label">Happy Travelers</dt>
+              <dd
+                class="benefits__stat-value"
+                data-counter-target="4200000"
+                data-counter-suffix="+"
+                data-bind="stat-travelers"
+              >
+                4.2M+
+              </dd>
             </div>
+            <div class="benefits__stat">
+              <dt class="benefits__stat-label">Destinations</dt>
+              <dd
+                class="benefits__stat-value"
+                data-counter-target="10000"
+                data-counter-suffix="+"
+                data-bind="stat-destinations"
+              >
+                10,000+
+              </dd>
+            </div>
+            <div class="benefits__stat">
+              <dt class="benefits__stat-label">Bookings Made</dt>
+              <dd
+                class="benefits__stat-value"
+                data-counter-target="18000000"
+                data-counter-suffix="+"
+                data-bind="stat-bookings"
+              >
+                18M+
+              </dd>
+            </div>
+            <div class="benefits__stat">
+              <dt class="benefits__stat-label">Guest Satisfaction</dt>
+              <dd
+                class="benefits__stat-value"
+                data-counter-target="98"
+                data-counter-suffix="%"
+                data-bind="stat-satisfaction"
+              >
+                98%
+              </dd>
+            </div>
+          </dl>
+        </div><!-- /.benefits__stats -->
+
+      </div><!-- /.benefits__container -->
+    </section><!-- /#benefits -->
+
+
+    <!-- ==========================================================
+         SECTION 5: TESTIMONIALS (optional but SEO-valuable)
+         Purpose: User-generated social proof.
+         ========================================================== -->
+    <section
+      id="testimonials"
+      class="testimonials"
+      aria-labelledby="testimonials-heading"
+      data-section="testimonials"
+      data-controller="testimonials-carousel"
+    >
+      <div class="testimonials__container">
+
+        <h2 id="testimonials-heading" class="testimonials__heading">
+          What Our Travelers Say
+        </h2>
+
+        <ul
+          class="testimonials__list"
+          role="list"
+          aria-label="Customer testimonials"
+        >
+
+          <li class="testimonials__item">
+            <blockquote
+              class="testimonial-card"
+              data-testimonial-id="T-2041"
+              data-listing-id="LST-00147"
+            >
+              <p class="testimonial-card__quote">
+                "ReservaHub made booking our honeymoon effortless. The confirmation arrived in seconds and the villa was exactly as described — pure magic."
+              </p>
+              <footer class="testimonial-card__meta">
+                <img
+                  class="testimonial-card__avatar"
+                  src="/assets/testimonials/avatar-priya.webp"
+                  alt="Portrait photo of Priya M., a customer from Mumbai"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="testimonial-card__author">
+                  <cite class="testimonial-card__name">Priya M.</cite>
+                  <span class="testimonial-card__location">Mumbai, India</span>
+                </div>
+                <div
+                  class="testimonial-card__rating"
+                  aria-label="Gave 5 out of 5 stars"
+                >
+                  <span aria-hidden="true">★★★★★</span>
+                </div>
+              </footer>
+            </blockquote>
+          </li>
+
+          <li class="testimonials__item">
+            <blockquote
+              class="testimonial-card"
+              data-testimonial-id="T-3302"
+              data-listing-id="LST-00293"
+            >
+              <p class="testimonial-card__quote">
+                "The Amazon expedition exceeded every expectation. The booking process was flawless and customer support was incredibly responsive."
+              </p>
+              <footer class="testimonial-card__meta">
+                <img
+                  class="testimonial-card__avatar"
+                  src="/assets/testimonials/avatar-james.webp"
+                  alt="Portrait photo of James O., a customer from London"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div class="testimonial-card__author">
+                  <cite class="testimonial-card__name">James O.</cite>
+                  <span class="testimonial-card__location">London, UK</span>
+                </div>
+                <div
+                  class="testimonial-card__rating"
+                  aria-label="Gave 5 out of 5 stars"
+                >
+                  <span aria-hidden="true">★★★★★</span>
+                </div>
+              </footer>
+            </blockquote>
+          </li>
+
+        </ul>
+
+      </div>
+    </section><!-- /#testimonials -->
+
+  </main><!-- /site-main -->
+
+
+  <!-- ============================================================
+       SITE FOOTER
+       Role: contentinfo landmark
+       Multi-column: Company Info, Quick Links, Legal, Newsletter
+       ============================================================ -->
+  <footer
+    class="site-footer"
+    role="contentinfo"
+    data-controller="footer"
+  >
+    <div class="site-footer__container">
+
+      <!-- ── Footer Top: Multi-column grid ─────────────────────── -->
+      <div class="site-footer__grid">
+
+        <!-- Column 1: Company Info -->
+        <div
+          class="site-footer__col site-footer__col--brand"
+          data-footer-col="brand"
+        >
+          <a
+            class="site-footer__logo-link"
+            href="/"
+            aria-label="ReservaHub — Return to homepage"
+          >
+            <img
+              class="site-footer__logo"
+              src="/assets/logo-white.svg"
+              alt="ReservaHub logo"
+              width="140"
+              height="35"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          <p class="site-footer__tagline">
+            Connecting travelers with extraordinary experiences since 2019. Book smarter. Travel better.
+          </p>
+          <!-- Social links -->
+          <nav
+            class="site-footer__social-nav"
+            aria-label="ReservaHub social media channels"
+          >
+            <ul class="site-footer__social-list" role="list">
+              <li>
+                <a
+                  class="site-footer__social-link"
+                  href="https://twitter.com/reservahub"
+                  aria-label="Follow ReservaHub on Twitter (opens in new tab)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-platform="twitter"
+                >
+                  <span aria-hidden="true">𝕏</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="site-footer__social-link"
+                  href="https://www.instagram.com/reservahub"
+                  aria-label="Follow ReservaHub on Instagram (opens in new tab)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-platform="instagram"
+                >
+                  <span aria-hidden="true">📸</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="site-footer__social-link"
+                  href="https://www.facebook.com/reservahub"
+                  aria-label="Follow ReservaHub on Facebook (opens in new tab)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-platform="facebook"
+                >
+                  <span aria-hidden="true">f</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="site-footer__social-link"
+                  href="https://www.linkedin.com/company/reservahub"
+                  aria-label="Connect with ReservaHub on LinkedIn (opens in new tab)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-social-platform="linkedin"
+                >
+                  <span aria-hidden="true">in</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div><!-- /col: brand -->
+
+
+        <!-- Column 2: Quick Links -->
+        <nav
+          class="site-footer__col site-footer__col--links"
+          aria-labelledby="footer-nav-quick-links"
+          data-footer-col="quick-links"
+        >
+          <h3
+            id="footer-nav-quick-links"
+            class="site-footer__col-heading"
+          >
+            Quick Links
+          </h3>
+          <ul class="site-footer__link-list" role="list">
+            <li><a class="site-footer__link" href="/" data-nav-item="home">Home</a></li>
+            <li><a class="site-footer__link" href="/destinations" data-nav-item="destinations">Destinations</a></li>
+            <li><a class="site-footer__link" href="/destinations/hotels" data-nav-item="hotels">Hotels</a></li>
+            <li><a class="site-footer__link" href="/destinations/tours" data-nav-item="tours">Tours</a></li>
+            <li><a class="site-footer__link" href="/destinations/experiences" data-nav-item="experiences">Experiences</a></li>
+            <li><a class="site-footer__link" href="/manage-booking" data-nav-item="manage-booking">Manage Booking</a></li>
+            <li><a class="site-footer__link" href="/account/dashboard" data-nav-item="dashboard">My Dashboard</a></li>
+            <li><a class="site-footer__link" href="/support" data-nav-item="support">Support</a></li>
+          </ul>
+        </nav><!-- /col: quick-links -->
+
+
+        <!-- Column 3: Legal & Company -->
+        <nav
+          class="site-footer__col site-footer__col--legal"
+          aria-labelledby="footer-nav-legal"
+          data-footer-col="legal"
+        >
+          <h3
+            id="footer-nav-legal"
+            class="site-footer__col-heading"
+          >
+            Legal &amp; Company
+          </h3>
+          <ul class="site-footer__link-list" role="list">
+            <li><a class="site-footer__link" href="/legal/privacy-policy" data-nav-item="privacy">Privacy Policy</a></li>
+            <li><a class="site-footer__link" href="/legal/terms-and-conditions" data-nav-item="terms">Terms &amp; Conditions</a></li>
+            <li><a class="site-footer__link" href="/legal/cookie-policy" data-nav-item="cookies">Cookie Policy</a></li>
+            <li><a class="site-footer__link" href="/legal/cancellation-policy" data-nav-item="cancellation">Cancellation Policy</a></li>
+            <li><a class="site-footer__link" href="/about" data-nav-item="about">About Us</a></li>
+            <li><a class="site-footer__link" href="/press" data-nav-item="press">Press</a></li>
+            <li><a class="site-footer__link" href="/careers" data-nav-item="careers">Careers</a></li>
+            <li><a class="site-footer__link" href="/partner" data-nav-item="partner">Become a Partner</a></li>
+          </ul>
+        </nav><!-- /col: legal -->
+
+
+        <!-- Column 4: Newsletter Subscription -->
+        <div
+          class="site-footer__col site-footer__col--newsletter"
+          data-footer-col="newsletter"
+        >
+          <h3
+            id="footer-newsletter-heading"
+            class="site-footer__col-heading"
+          >
+            Get Exclusive Deals
+          </h3>
+          <p class="site-footer__newsletter-desc">
+            Subscribe for curated travel inspiration, flash deals, and member-only discounts delivered weekly.
+          </p>
+
+          <form
+            class="newsletter-form"
+            id="footer-newsletter-form"
+            method="POST"
+            action="/api/v1/newsletter/subscribe"
+            novalidate
+            aria-labelledby="footer-newsletter-heading"
+            data-controller="newsletter-form"
+            data-action="subscribe-newsletter"
+          >
+            <input type="hidden" name="source" value="footer" />
+            <input type="hidden" name="_csrf_token" value="" data-bind="csrf" />
+
+            <div class="newsletter-form__input-group">
+              <label
+                class="newsletter-form__label sr-only"
+                for="newsletter-email"
+              >
+                Email address for newsletter
+              </label>
+              <input
+                class="newsletter-form__input"
+                type="email"
+                id="newsletter-email"
+                name="email"
+                placeholder="Your email address"
+                required
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="newsletter-email-hint newsletter-email-error"
+                maxlength="254"
+                data-field="email"
+              />
+              <span
+                id="newsletter-email-hint"
+                class="newsletter-form__hint"
+              >
+                We respect your privacy. Unsubscribe anytime.
+              </span>
+              <span
+                id="newsletter-email-error"
+                class="newsletter-form__error"
+                role="alert"
+                aria-live="assertive"
+                hidden
+                data-bind="newsletter-error"
+              >
+                Please enter a valid email address.
+              </span>
+            </div>
+
+            <!-- GDPR / Consent Checkbox -->
+            <div class="newsletter-form__consent-group">
+              <input
+                class="newsletter-form__checkbox"
+                type="checkbox"
+                id="newsletter-consent"
+                name="gdpr_consent"
+                required
+                value="1"
+                aria-required="true"
+                aria-describedby="newsletter-consent-label newsletter-consent-error"
+                data-field="gdpr-consent"
+              />
+              <label
+                class="newsletter-form__consent-label"
+                id="newsletter-consent-label"
+                for="newsletter-consent"
+              >
+                I agree to receive marketing emails from ReservaHub and accept the
+                <a
+                  class="newsletter-form__consent-link"
+                  href="/legal/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Read our Privacy Policy (opens in new tab)"
+                >
+                  Privacy Policy
+                </a>.
+              </label>
+              <span
+                id="newsletter-consent-error"
+                class="newsletter-form__error"
+                role="alert"
+                aria-live="assertive"
+                hidden
+                data-bind="consent-error"
+              >
+                You must agree to the privacy policy to subscribe.
+              </span>
+            </div>
+
+            <button
+              class="btn btn--primary newsletter-form__submit"
+              type="submit"
+              aria-label="Subscribe to the ReservaHub newsletter"
+              data-action="subscribe-newsletter"
+              data-loading-text="Subscribing…"
+            >
+              <span class="btn__text">Subscribe</span>
+              <span class="btn__spinner" aria-hidden="true" hidden></span>
+            </button>
+
+            <!-- Success/error live region -->
+            <div
+              class="newsletter-form__status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              data-bind="newsletter-status"
+            ></div>
+
+          </form><!-- /#footer-newsletter-form -->
+
+          <!-- App Store / Play Store CTAs -->
+          <div
+            class="site-footer__app-badges"
+            aria-label="Download the ReservaHub mobile app"
+          >
+            <a
+              class="site-footer__app-badge-link"
+              href="https://apps.apple.com/app/reservahub"
+              aria-label="Download ReservaHub on the App Store (opens in new tab)"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-action="app-store-click"
+              data-platform="ios"
+            >
+              <img
+                class="site-footer__app-badge-img"
+                src="/assets/badges/app-store.svg"
+                alt="Download on the App Store"
+                width="135"
+                height="40"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <a
+              class="site-footer__app-badge-link"
+              href="https://play.google.com/store/apps/reservahub"
+              aria-label="Get ReservaHub on Google Play (opens in new tab)"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-action="app-store-click"
+              data-platform="android"
+            >
+              <img
+                class="site-footer__app-badge-img"
+                src="/assets/badges/google-play.svg"
+                alt="Get it on Google Play"
+                width="135"
+                height="40"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </div>
+
+        </div><!-- /col: newsletter -->
+
+      </div><!-- /.site-footer__grid -->
+
+
+      <!-- ── Footer Bottom: Legal Bar ────────────────────────────── -->
+      <div
+        class="site-footer__bottom"
+        role="region"
+        aria-label="Legal and supplementary footer information"
+      >
+        <div class="site-footer__bottom-left">
+          <p class="site-footer__copyright">
+            <small>
+              &copy; <time datetime="2025">2025</time> ReservaHub, Inc. All rights reserved.
+              ReservaHub is a registered trademark.
+            </small>
+          </p>
         </div>
 
-        <div class="main-content">
-            <section class="form-section">
-                <h2>Add New Employee</h2>
-                <form id="payrollForm">
-                    <div class="input-group">
-                        <input type="text" id="empName" placeholder="Full Legal Name" required autocomplete="off">
-                        <select id="empDept" required>
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Research">Research & Development</option>
-                            <option value="HR">Human Resources</option>
-                        </select>
-                    </div>
+        <nav
+          class="site-footer__bottom-nav"
+          aria-label="Legal footer links"
+        >
+          <ul class="site-footer__bottom-links" role="list">
+            <li>
+              <a
+                class="site-footer__bottom-link"
+                href="/legal/privacy-policy"
+              >
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a
+                class="site-footer__bottom-link"
+                href="/legal/terms-and-conditions"
+              >
+                Terms &amp; Conditions
+              </a>
+            </li>
+            <li>
+              <a
+                class="site-footer__bottom-link"
+                href="/legal/cookie-policy"
+                data-action="open-cookie-settings"
+              >
+                Cookie Settings
+              </a>
+            </li>
+            <li>
+              <a
+                class="site-footer__bottom-link"
+                href="/legal/accessibility"
+              >
+                Accessibility
+              </a>
+            </li>
+            <li>
+              <a
+                class="site-footer__bottom-link"
+                href="/sitemap.xml"
+              >
+                Sitemap
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-                    <div class="input-group">
-                        <select id="empType" onchange="UI.toggleInputs()" required>
-                            <option value="full-time">Full-Time (Monthly Salaried)</option>
-                            <option value="part-time">Part-Time (Hourly Contract)</option>
-                        </select>
-                        <input type="number" id="salaryInput" placeholder="Base Monthly Salary ($)" required min="1">
-                    </div>
-
-                    <div id="extraInput" class="input-group" style="display:none;">
-                        <input type="number" id="hoursWorked" placeholder="Total Hours Worked" min="1">
-                    </div>
-
-                    <button type="submit" id="addBtn">
-                        <span>Process & Add Employee</span>
-                    </button>
-                </form>
-            </section>
-
-            <section class="table-section">
-                <table id="payrollTable">
-                    <thead>
-                        <tr>
-                            <th>EMP ID</th>
-                            <th>Name</th>
-                            <th>Dept.</th>
-                            <th>Type</th>
-                            <th>Gross Pay</th>
-                            <th>Tax (10%)</th>
-                            <th>Net Salary</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="employeeList">
-                        </tbody>
-                </table>
-            </section>
+        <!-- Trust / Payment Logos -->
+        <div
+          class="site-footer__trust-logos"
+          aria-label="Accepted payment methods and security certifications"
+        >
+          <img
+            class="site-footer__trust-logo"
+            src="/assets/trust/visa.svg"
+            alt="Visa accepted"
+            width="50"
+            height="30"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="site-footer__trust-logo"
+            src="/assets/trust/mastercard.svg"
+            alt="Mastercard accepted"
+            width="50"
+            height="30"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="site-footer__trust-logo"
+            src="/assets/trust/amex.svg"
+            alt="American Express accepted"
+            width="50"
+            height="30"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="site-footer__trust-logo"
+            src="/assets/trust/paypal.svg"
+            alt="PayPal accepted"
+            width="50"
+            height="30"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="site-footer__trust-logo"
+            src="/assets/trust/ssl-secure.svg"
+            alt="SSL Secured"
+            width="50"
+            height="30"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
+
+      </div><!-- /.site-footer__bottom -->
+
+    </div><!-- /.site-footer__container -->
+  </footer><!-- /site-footer -->
+
+
+  <!-- ============================================================
+       COOKIE CONSENT BANNER
+       Accessibility: role="dialog", aria-modal, focus-trapped by JS.
+       Backend: CookieConsentController reads data-consent-* attrs.
+       ============================================================ -->
+  <aside
+    id="cookie-consent-banner"
+    class="cookie-banner"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cookie-banner-title"
+    aria-describedby="cookie-banner-desc"
+    data-controller="cookie-consent"
+    hidden
+  >
+    <h2 id="cookie-banner-title" class="cookie-banner__title">
+      We use cookies
+    </h2>
+    <p id="cookie-banner-desc" class="cookie-banner__desc">
+      We use cookies to enhance your browsing experience, personalise content, analyse traffic, and serve targeted ads. You can manage your preferences at any time.
+    </p>
+    <div class="cookie-banner__actions">
+      <button
+        class="btn btn--primary btn--sm"
+        type="button"
+        aria-label="Accept all cookies"
+        data-action="accept-all-cookies"
+        data-consent-level="all"
+      >
+        Accept All
+      </button>
+      <button
+        class="btn btn--ghost btn--sm"
+        type="button"
+        aria-label="Accept only essential cookies"
+        data-action="accept-essential-cookies"
+        data-consent-level="essential"
+      >
+        Essential Only
+      </button>
+      <a
+        class="cookie-banner__manage-link"
+        href="/legal/cookie-policy"
+        aria-label="Manage cookie preferences and view our full cookie policy"
+        data-action="manage-cookies"
+      >
+        Manage Preferences
+      </a>
     </div>
+  </aside><!-- /#cookie-consent-banner -->
 
-    <script src="script.js"></script>
+
+  <!-- ============================================================
+       GLOBAL MODAL CONTAINER
+       Purpose: Injected modals (booking flow, auth, image gallery)
+       are appended here by ModalController at runtime.
+       aria-live="polite" announces modal open/close to screen readers.
+       ============================================================ -->
+  <div
+    id="modal-root"
+    class="modal-root"
+    role="region"
+    aria-live="polite"
+    aria-label="Modal dialogs"
+    data-controller="modal-root"
+  ></div>
+
+
+  <!-- ============================================================
+       GLOBAL NOTIFICATION / TOAST CONTAINER
+       Purpose: Success/error toasts injected by NotificationController.
+       ============================================================ -->
+  <div
+    id="notification-container"
+    class="notifications"
+    role="status"
+    aria-live="polite"
+    aria-atomic="false"
+    aria-label="Application notifications"
+    data-controller="notifications"
+  ></div>
+
+
+  <!-- ============================================================
+       SCREEN-READER ONLY UTILITY CLASS
+       .sr-only is defined in CSS to visually hide elements while
+       keeping them accessible to assistive technologies:
+         position: absolute; width: 1px; height: 1px;
+         padding: 0; margin: -1px; overflow: hidden;
+         clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+       ============================================================ -->
+
 </body>
 </html>
