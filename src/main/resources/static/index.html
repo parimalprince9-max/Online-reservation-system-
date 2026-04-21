@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Dining | Online Reservation System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">LUMINA</div>
+            <nav class="nav-links">
+                <a href="#book">Book a Table</a>
+                <a href="#view">My Reservations</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Exquisite Dining.</h1>
+            <p>Experience the future of gastronomy in a setting designed for the extraordinary. Reserve your table at Lumina today.</p>
+        </section>
+
+        <div class="booking-section" id="book">
+            <div class="glass-card">
+                <h2>Make a Reservation</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Secure your spot at our table in seconds.</p>
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time</label>
+                            <input type="time" id="time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="partySize">Party Size</label>
+                        <select id="partySize" required>
+                            <option value="1">1 Person</option>
+                            <option value="2" selected>2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5">5 People</option>
+                            <option value="6+">6+ People</option>
+                        </select>
+                    </div>
+                    <button type="submit">Confirm Reservation</button>
+                </form>
+            </div>
+
+            <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Why Lumina?</h3>
+                <ul style="list-style: none; color: var(--text-muted);">
+                    <li style="margin-bottom: 1rem;">✨ <strong>Curated Flavors:</strong> Seasonal ingredients sourced from local artisans.</li>
+                    <li style="margin-bottom: 1rem;">🌌 <strong>Futuristic Ambience:</strong> An immersive environment with smart lighting and acoustics.</li>
+                    <li style="margin-bottom: 1rem;">🍷 <strong>Master Sommelier:</strong> A wine list that tells a story with every pour.</li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="reservations-list" id="view">
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2>Active Reservations</h2>
+                    <button id="refreshBtn" style="width: auto; padding: 0.5rem 1rem; font-size: 0.9rem;">Refresh List</button>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="reservation-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Guests</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationTableBody">
+                            <!-- Data will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
